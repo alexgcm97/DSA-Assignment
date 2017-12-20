@@ -1,3 +1,5 @@
+package client;
+
 
 import domain.Staff;
 import domain.foodOrdered;

@@ -1,3 +1,5 @@
+package client;
+
 
 import domain.Menu;
 import domain.Restaurant;

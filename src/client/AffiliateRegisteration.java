@@ -1,3 +1,5 @@
+package client;
+
 
 import domain.Affiliate;
 import domain.Menu;
