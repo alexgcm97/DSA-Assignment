@@ -5,7 +5,8 @@
  */
 package domain;
 
-import java.util.ArrayList;
+import adt.StaffADT;
+
 
 /**
  *
@@ -18,7 +19,7 @@ public class Staff {
     private String phoneNo;
     private String address;
     private String status;
-    private ArrayList<orderDetails> deliveryList;
+    private StaffADT<staffOD> deliveryList;
     private String checkIn;
     private String checkOut;
     private String availability;
@@ -68,7 +69,7 @@ public class Staff {
         this.phoneNo = phoneNo;
         this.address = address;
         this.status = status;
-        this.deliveryList = new ArrayList<orderDetails>();
+        this.deliveryList = new StaffADT<staffOD>();
     }
 
 
@@ -113,15 +114,15 @@ public class Staff {
         this.status = status;
     }
 
-    public void addDelivery(orderDetails od) {
+    public void addDelivery(staffOD od) {
         deliveryList.add(od);
     }
 
-    public void setDeliveryList(ArrayList<orderDetails> deliveryList) {
+    public void setDeliveryList(StaffADT<staffOD> deliveryList) {
         this.deliveryList = deliveryList;
     }
 
-    public ArrayList<orderDetails> getDeliveryList() {
+    public StaffADT<staffOD> getDeliveryList() {
         return deliveryList;
     }
 }

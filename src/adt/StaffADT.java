@@ -9,7 +9,7 @@ package adt;
  *
  * @author Student
  */
-public class StaffList<T> implements StaffListInterface<T> {
+public class StaffADT<T> implements StaffInterface<T> {
 
     private Node firstNode, lastNode;
     private int size;
@@ -43,37 +43,6 @@ public class StaffList<T> implements StaffListInterface<T> {
             temp = temp.next;
         }
         return str;
-    }
-
-    @Override
-    public boolean remove(T anEntry) {
-        if (!isEmpty()) {   //check empty list
-            if (firstNode.data.equals(anEntry)) {   // remove first node
-                firstNode = firstNode.next;
-                if (firstNode == null) {
-                    lastNode = null;
-                } else 
-                    firstNode.previous = null;
-                size--;
-                return true;
-            }
-            Node temp = firstNode;
-            while (temp != null && !temp.data.equals(anEntry)) {
-                temp = temp.next;
-                if (temp != null && temp.data.equals(anEntry)) {
-                    if (temp == lastNode) { //remove last node
-                        lastNode = temp.previous;
-                        lastNode.next = null;
-                    } else {    //remove middle node
-                        temp.previous.next = temp.next;
-                        temp.next.previous = temp.previous;
-                    }
-                    size--;
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     @Override
@@ -111,6 +80,53 @@ public class StaffList<T> implements StaffListInterface<T> {
             temp = temp.previous;
         }
         return str;
+    }
+
+    @Override
+    public T get(int index) {
+        T result = null;
+        Node temp = firstNode;
+        if (index == 0) {
+            result = firstNode.data;
+        } else {
+            for (int i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+            result = temp.data;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean remove(T anEntry) {
+        if (!isEmpty()) {   //check empty list
+            if (firstNode.data.equals(anEntry)) {   // remove first node
+                firstNode = firstNode.next;
+                if (firstNode == null) {
+                    lastNode = null;
+                } else {
+                    firstNode.previous = null;
+                }
+                size--;
+                return true;
+            }
+            Node temp = firstNode;
+            while (temp != null && !temp.data.equals(anEntry)) {
+                temp = temp.next;
+                if (temp != null && temp.data.equals(anEntry)) {
+                    if (temp == lastNode) { //remove last node
+                        lastNode = temp.previous;
+                        lastNode.next = null;
+                    } else {    //remove middle node
+                        temp.previous.next = temp.next;
+                        temp.next.previous = temp.previous;
+                    }
+                    size--;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private class Node {

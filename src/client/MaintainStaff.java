@@ -1,11 +1,10 @@
 package client;
 
-
+import adt.StaffADT;
 import domain.Staff;
 import domain.foodOrdered;
-import domain.orderDetails;
+import domain.staffOD;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -20,10 +19,10 @@ import java.util.Scanner;
 public class MaintainStaff {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static final ArrayList<Staff> staffList = new ArrayList<Staff>();
+    private static final StaffADT<Staff> staffList = new StaffADT<Staff>();
     private static int ID = 1002;
-    private static orderDetails orderDetail;
-    private static final ArrayList<orderDetails> orderList = new ArrayList<orderDetails>();
+    private static staffOD staffOD;
+    private static final StaffADT<staffOD> orderList = new StaffADT<staffOD>();
 
     public static int compareInput(String input) {
         if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("ye") || input.equalsIgnoreCase("yes")) {
@@ -57,7 +56,7 @@ public class MaintainStaff {
             System.out.print("Address : ");
             newStaff.setAddress(scanner.nextLine());
             newStaff.setStatus("Active");
-            newStaff.setDeliveryList(new ArrayList<orderDetails>());
+            newStaff.setDeliveryList(new StaffADT<staffOD>());
 
             do {
                 System.out.print("Verify Input Details (Y/N/Exit) ?  ");
@@ -129,7 +128,8 @@ public class MaintainStaff {
                     break OUTER;
                 }
 
-                for (Staff s : staffList) {
+                for (int i = 0; i < staffList.getSize(); i++) {
+                    Staff s = staffList.get(i);
                     if (s.getID() == input) {
                         staff = s;
                     }
@@ -140,7 +140,7 @@ public class MaintainStaff {
             } while (staff == null);
 
             do {
-                ArrayList<orderDetails> deliveryList = new ArrayList<>();
+                StaffADT<staffOD> deliveryList = new StaffADT<>();
                 if (!staff.getDeliveryList().isEmpty()) {
                     deliveryList = staff.getDeliveryList();
                 }
@@ -152,7 +152,8 @@ public class MaintainStaff {
                 if (deliveryList.isEmpty()) {
                     System.out.println("Delivery list is empty.");
                 } else {
-                    for (orderDetails od : deliveryList) {
+                    for (int i = 0; i < deliveryList.getSize(); i++) {
+                        staffOD od = deliveryList.get(i);
                         System.out.print(od.getOrderID() + " ");
                     }
                 }
@@ -173,7 +174,9 @@ public class MaintainStaff {
                     case 1: {
                         if (!orderList.isEmpty()) {
                             System.out.print("Current Available Order IDs: ");
-                            for (orderDetails od : orderList) {
+
+                            for (int i = 0; i < orderList.getSize(); i++) {
+                                staffOD od = orderList.get(i);
                                 System.out.print(od.getOrderID() + " ");
                             }
                             System.out.println("");
@@ -181,7 +184,8 @@ public class MaintainStaff {
                             input = scanner.nextInt();
                             scanner.nextLine();
 
-                            for (orderDetails od : orderList) {
+                            for (int i = 0; i < orderList.getSize(); i++) {
+                                staffOD od = orderList.get(i);
                                 if (input == od.getOrderID()) {
                                     if (!staff.getDeliveryList().contains(od)) {
                                         staff.addDelivery(od);
@@ -206,7 +210,9 @@ public class MaintainStaff {
                             System.out.print("Input Order ID: ");
                             input = scanner.nextInt();
                             scanner.nextLine();
-                            for (orderDetails od : staff.getDeliveryList()) {
+                            StaffADT<staffOD> odList = staff.getDeliveryList();
+                            for (int i = 0; i < odList.getSize(); i++) {
+                                staffOD od = odList.get(i);
                                 if (input == od.getOrderID()) {
                                     System.out.println("\n\n==Order Details==");
                                     System.out.println("Order ID: " + od.getOrderID());
@@ -218,6 +224,7 @@ public class MaintainStaff {
                                     System.out.println("Invalid Order ID");
                                 }
                             }
+
                             break;
                         }
                     }
@@ -255,7 +262,8 @@ public class MaintainStaff {
                     break OUTER;
                 }
 
-                for (Staff s : staffList) {
+                for (int i = 0; i < staffList.getSize(); i++) {
+                    Staff s = staffList.get(i);
                     if (s.getID() == input) {
                         staff = s;
                     }
@@ -364,7 +372,7 @@ public class MaintainStaff {
         int input = 0;
         String strInput = null;
 
-        ArrayList<String> statusList = new ArrayList<>();
+        StaffADT<String> statusList = new StaffADT<>();
         statusList.add("Active");
         statusList.add("Inactive");
         statusList.add("Resigned");
@@ -381,7 +389,8 @@ public class MaintainStaff {
                     break OUTER;
                 }
 
-                for (Staff s : staffList) {
+                for (int i = 0; i < staffList.getSize(); i++) {
+                    Staff s = staffList.get(i);
                     if (s.getID() == input) {
                         staff = s;
                     }
@@ -397,7 +406,7 @@ public class MaintainStaff {
                 System.out.println("Staff Name(ID) : " + staff.getName() + "(" + staff.getID() + ")");
                 System.out.println("Current Status : " + staff.getStatus());
                 System.out.println("\nSet New Status:");
-                for (int i = 0; i < statusList.size(); i++) {
+                for (int i = 0; i < statusList.getSize(); i++) {
                     if (!staff.getStatus().equalsIgnoreCase(statusList.get(i))) {
                         System.out.println(numb + ". " + statusList.get(i));
                         numb++;
@@ -410,7 +419,7 @@ public class MaintainStaff {
                     scanner.nextLine();
                     if (input == 0) {
                         break OUTER;
-                    } else if(input <1 || input > 3){
+                    } else if (input < 1 || input > 3) {
                         System.out.println("Invalid Selection");
                     }
                 } while (input < 1 || input > 3);
@@ -507,25 +516,25 @@ public class MaintainStaff {
     }
 
     public static void main(String[] args) throws IOException {
-        //Intialize ArrayLists
+        //Intialize StaffLists
         staffList.add(new Staff(1001, "Alex", "012-3456789", "123, Jalan ABC", "Active"));
 
-        ArrayList<foodOrdered> fo = new ArrayList<foodOrdered>();
+        StaffADT<foodOrdered> fo = new StaffADT<foodOrdered>();
         fo.add(new foodOrdered(2001, "Nasi lemak", 1, 5.00));
         fo.add(new foodOrdered(2001, "Burger", 1, 5.00));
         fo.add(new foodOrdered(2001, "Kopi ice", 1, 2.00));
-        orderDetail = new orderDetails(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
-        staffList.get(0).addDelivery(orderDetail);
+        staffOD = new staffOD(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
+        staffList.get(0).addDelivery(staffOD);
 
-        fo = new ArrayList<>();
+        fo = new StaffADT<>();
         fo.add(new foodOrdered(2002, "Roti bakar", 2, 5.00));
         fo.add(new foodOrdered(2002, "Telur", 2, 4.0));
         fo.add(new foodOrdered(2002, "Milo Ais", 2, 2.50));
-        orderList.add(new orderDetails(1001, 2002, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", fo));
-        fo = new ArrayList<>();
+        orderList.add(new staffOD(1001, 2002, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", fo));
+        fo = new StaffADT<>();
         fo.add(new foodOrdered(2003, "Mee Rebus", 2, 5.0));
         fo.add(new foodOrdered(2003, "Teh Ais", 1, 2.0));
-        orderList.add(new orderDetails(1002, 2003, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", fo));
+        orderList.add(new staffOD(1002, 2003, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", fo));
 
         int input;
         do {

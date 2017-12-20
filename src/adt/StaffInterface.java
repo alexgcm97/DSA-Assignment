@@ -9,11 +9,19 @@ package adt;
  *
  * @author Student
  */
-public interface StaffListInterface<T> {
+public interface StaffInterface<T> {
+
     void add(T newEntry);
+
+    T get(int index);
+
     boolean remove(T anEntry);
+
     boolean contains(T anEntry);
+
     int getSize();
+
     boolean isEmpty();
+
     String toStringReverse();
 }
