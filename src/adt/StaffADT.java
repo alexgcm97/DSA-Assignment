@@ -72,17 +72,6 @@ public class StaffADT<T> implements StaffInterface<T> {
     }
 
     @Override
-    public String toStringReverse() {
-        String str = "";
-        Node temp = lastNode;
-        while (temp != null) {
-            str += temp.data + " ";
-            temp = temp.previous;
-        }
-        return str;
-    }
-
-    @Override
     public T get(int index) {
         T result = null;
         Node temp = firstNode;

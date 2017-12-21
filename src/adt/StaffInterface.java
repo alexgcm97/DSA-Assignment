@@ -22,8 +22,6 @@ public interface StaffInterface<T> {
     int getSize();
 
     boolean isEmpty();
-
-    String toStringReverse();
     
     void set(int index, T anEntry);
     
