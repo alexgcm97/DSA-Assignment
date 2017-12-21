@@ -37,15 +37,15 @@ public class MaintainStaff {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
 
-        staffList.get(0).addDelivery(new staffOD(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Completed", "18-12-2017", 6));
-        staffList.get(0).addDelivery(new staffOD(1001, 2005, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 0));
+        staffList.get(0).addDelivery(new staffOD(2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Completed", "18-12-2017", 6));
+        staffList.get(0).addDelivery(new staffOD(2005, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 0));
 
-        staffList.get(1).addDelivery(new staffOD(1002, 2004, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 5));
-        staffList.get(1).addDelivery(new staffOD(1002, 2002, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 7));
-        staffList.get(1).addDelivery(new staffOD(1002, 2003, 3001, "Kopitiam", "John", "Taman ABC", "012-333444555", "Completed", "18-12-2017", 3.5));
+        staffList.get(1).addDelivery(new staffOD(2004, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 5));
+        staffList.get(1).addDelivery(new staffOD(2002, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 7));
+        staffList.get(1).addDelivery(new staffOD(2003, 3001, "Kopitiam", "John", "Taman ABC", "012-333444555", "Completed", "18-12-2017", 3.5));
 
-        orderList.add(new staffOD(1001, 2006, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
-        orderList.add(new staffOD(1002, 2007, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
+        orderList.add(new staffOD(2006, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
+        orderList.add(new staffOD(2007, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
     }
 
     public static int compareInput(String input) {
@@ -171,8 +171,8 @@ public class MaintainStaff {
 
     public static void retrieveDeliveries() {
         Staff staff = null;
-        int input = 0;
-        int count = 0;
+        int input = 0, count = 0;
+        boolean found = false;
 
         System.out.println("\n\n\n\n**Retrieve Pending Deliveries**");
         OUTER:
@@ -199,6 +199,10 @@ public class MaintainStaff {
                 if (staff == null) {
                     System.out.println("Staff ID Not Found.");
                 }
+                if (!staff.getStatus().equals("Active")) {
+                    System.out.println("Staff is not active.");
+                    break OUTER;
+                }
             } while (staff == null);
 
             do {
@@ -212,7 +216,7 @@ public class MaintainStaff {
                 System.out.print("Order IDs: ");
 
                 if (deliveryList.isEmpty()) {
-                    System.out.println("Delivery list is empty.");
+                    System.out.println("No pending deliveries.");
                 } else {
                     for (int i = 0; i < deliveryList.getSize(); i++) {
                         staffOD od = deliveryList.get(i);
@@ -222,14 +226,14 @@ public class MaintainStaff {
                         }
                     }
                     if (count == 0) {
-                        System.out.println("Delivery list is empty.");
+                        System.out.println("No pending deliveries.");
                     }
                 }
                 System.out.println("");
 
                 System.out.println("==List of Action==");
                 System.out.println("1. Assign New Order");
-                if (!deliveryList.isEmpty()) {
+                if (!deliveryList.isEmpty() && count > 0) {
                     System.out.println("2. Check Order Details");
                 }
                 System.out.println("0. Exit");
@@ -300,15 +304,13 @@ public class MaintainStaff {
                                         System.out.println("Customer Address: " + od.getCustomerAdd());
                                         System.out.println("Customer Phone Number: " + od.getCustNo());
                                         System.out.println("Date: " + od.getDate());
-                                        break Loop;
-                                    } else {
-                                        System.out.println("Order may be completed or invalid.");
-                                        break Loop;
+                                        found = true;
+                                        break;
                                     }
-                                } else {
-                                    System.out.println("Invalid Order ID");
-                                    break Loop;
                                 }
+                            }
+                            if (found == false) {
+                                System.out.println("Invalid Order ID.");
                             }
                             break;
                         }
@@ -596,7 +598,7 @@ public class MaintainStaff {
         int input = 0;
         String dateStr = null;
         Date date = null;
-        boolean validDate = false;
+        boolean validDate;
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         StaffSortedList sortedList = new StaffSortedList();
         boolean isEmpty = true;
@@ -609,10 +611,12 @@ public class MaintainStaff {
                 break;
             }
             try {
+                df.setLenient(false);
                 date = df.parse(dateStr);
-                break;
+                validDate = true;
             } catch (ParseException e) {
-                System.out.println("Invalid Date Format");
+                System.out.println(dateStr + " is not a valid date. Please try again.");
+                validDate = false;
             }
         } while (validDate == false);
 
@@ -634,6 +638,7 @@ public class MaintainStaff {
             s.setNoOfDoneDelivery(tempCount);
             s.setTotalDistance(tempDistance);
         }
+
         if (!isEmpty) {
             OUTER:
             do {

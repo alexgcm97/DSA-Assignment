@@ -13,8 +13,6 @@ import java.util.Date;
  * @author REPUBLIC
  */
 public class staffOD {
-
-    private int staffID;
     private int orderID;
     private int resID;
     private String resName;
@@ -29,8 +27,7 @@ public class staffOD {
 
     }
 
-    public staffOD(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, String status, String date, double distance) {
-        this.staffID = staffID;
+    public staffOD(int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, String status, String date, double distance) {
         this.orderID = orderID;
         this.resID = resID;
         this.resName = resName;
@@ -45,14 +42,6 @@ public class staffOD {
     public staffOD(int resID, String resName) {
         this.resID = resID;
         this.resName = resName;
-    }
-
-    public int getStaffID() {
-        return staffID;
-    }
-
-    public void setStaffID(int staffID) {
-        this.staffID = staffID;
     }
 
     public String getResName() {
