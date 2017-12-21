@@ -5,8 +5,7 @@
  */
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import adt.CustomerADT;
 
 /**
  *
@@ -16,13 +15,13 @@ public class Restaurant {
     
     int resId;
     String resName;
-    ArrayList<Menu> menuList = new ArrayList<Menu>();
+    CustomerADT<Menu> menuList = new CustomerADT<Menu>();
 
     public Restaurant(){
         
     }
     
-    public Restaurant(int resId, String resName, ArrayList<Menu> menuList){
+    public Restaurant(int resId, String resName, CustomerADT<Menu> menuList){
         this.resId = resId;
         this.resName = resName;
         this.menuList = menuList;
@@ -44,11 +43,11 @@ public class Restaurant {
         this.resName = resName;
     }
 
-    public List<Menu> getMenuList() {
+    public CustomerADT<Menu> getMenuList() {
         return menuList;
     }
 
-    public void setMenuList(ArrayList<Menu> menuList) {
+    public void setMenuList(CustomerADT<Menu> menuList) {
         this.menuList = menuList;
     }    
 }
