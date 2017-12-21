@@ -6,6 +6,7 @@
 package domain;
 
 import adt.StaffADT;
+import java.util.Date;
 
 /**
  *
@@ -20,15 +21,15 @@ public class staffOD {
     private String customerName;
     private String customerAdd;
     private String custNo;
-    private StaffADT food;
     private String status;
+    private String date;
+    private double distance;
 
     public staffOD() {
 
     }
 
-    public staffOD(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, StaffADT food) {
-
+    public staffOD(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, String status, String date, double distance) {
         this.staffID = staffID;
         this.orderID = orderID;
         this.resID = resID;
@@ -36,21 +37,14 @@ public class staffOD {
         this.customerName = customerName;
         this.customerAdd = customerAdd;
         this.custNo = custNo;
-        this.food = food;
-        this.status = "Pending";
+        this.status = status;
+        this.date = date;
+        this.distance = distance;
     }
 
     public staffOD(int resID, String resName) {
         this.resID = resID;
         this.resName = resName;
-    }
-
-    public StaffADT getFood() {
-        return food;
-    }
-
-    public void setFood(StaffADT food) {
-        this.food = food;
     }
 
     public int getStaffID() {
@@ -115,5 +109,21 @@ public class staffOD {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }

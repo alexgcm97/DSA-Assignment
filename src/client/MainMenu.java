@@ -6,11 +6,12 @@
 package client;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class MainMenu {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         Scanner scan = new Scanner(System.in);
         int input = 0;
         do {

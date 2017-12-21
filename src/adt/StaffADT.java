@@ -129,6 +129,15 @@ public class StaffADT<T> implements StaffInterface<T> {
         return false;
     }
 
+    @Override
+    public void set(int index, T anEntry) {
+        Node temp = firstNode;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        temp.data = anEntry;
+    }
+
     private class Node {
 
         T data;

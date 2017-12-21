@@ -7,7 +7,6 @@ package domain;
 
 import adt.StaffADT;
 
-
 /**
  *
  * @author Alex
@@ -23,16 +22,26 @@ public class Staff {
     private String checkIn;
     private String checkOut;
     private String availability;
+    private double totalDistance;
+    private int noOfDoneDelivery;
 
     public Staff() {
 
     }
 
-       public Staff(int ID, String name, String availability) {
+    public Staff(int ID, String name, String availability) {
         this.ID = ID;
         this.name = name;
-        this.availability=availability;
+        this.availability = availability;
+    }
 
+    public Staff(int ID, String name, String phoneNo, String address, String status) {
+        this.ID = ID;
+        this.name = name;
+        this.phoneNo = phoneNo;
+        this.address = address;
+        this.status = status;
+        this.deliveryList = new StaffADT<staffOD>();
     }
 
     public String getAvailability() {
@@ -42,8 +51,6 @@ public class Staff {
     public void setAvailability(String availability) {
         this.availability = availability;
     }
-
-
 
     public String getCheckIn() {
         return checkIn;
@@ -60,19 +67,6 @@ public class Staff {
     public void setCheckOut(String checkOut) {
         this.checkOut = checkOut;
     }
-
-    
-
-    public Staff(int ID, String name, String phoneNo, String address, String status) {
-        this.ID = ID;
-        this.name = name;
-        this.phoneNo = phoneNo;
-        this.address = address;
-        this.status = status;
-        this.deliveryList = new StaffADT<staffOD>();
-    }
-
-
 
     public int getID() {
         return ID;
@@ -125,4 +119,21 @@ public class Staff {
     public StaffADT<staffOD> getDeliveryList() {
         return deliveryList;
     }
+
+    public double getTotalDistance() {
+        return totalDistance;
+    }
+
+    public void setTotalDistance(double totalDistance) {
+        this.totalDistance = totalDistance;
+    }
+
+    public int getNoOfDoneDelivery() {
+        return noOfDoneDelivery;
+    }
+
+    public void setNoOfDoneDelivery(int noOfDoneDelivery) {
+        this.noOfDoneDelivery = noOfDoneDelivery;
+    }
+
 }

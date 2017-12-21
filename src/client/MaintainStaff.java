@@ -1,11 +1,17 @@
 package client;
 
 import adt.StaffADT;
+import adt.StaffSortedList;
 import domain.Staff;
-import domain.foodOrdered;
 import domain.staffOD;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,9 +26,27 @@ public class MaintainStaff {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final StaffADT<Staff> staffList = new StaffADT<Staff>();
-    private static int ID = 1002;
+    private static int ID = 1003;
     private static staffOD staffOD;
     private static final StaffADT<staffOD> orderList = new StaffADT<staffOD>();
+
+    public static void initializeData() {
+        staffList.add(new Staff(1001, "Alex", "012-3456789", "123, Jalan ABC", "Active"));
+        staffList.add(new Staff(1002, "Jonathan", "013-44455566", "12, Jalan DEF", "Active"));
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+
+        staffList.get(0).addDelivery(new staffOD(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Completed", "18-12-2017", 6));
+        staffList.get(0).addDelivery(new staffOD(1001, 2005, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 0));
+
+        staffList.get(1).addDelivery(new staffOD(1002, 2004, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 5));
+        staffList.get(1).addDelivery(new staffOD(1002, 2002, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 7));
+        staffList.get(1).addDelivery(new staffOD(1002, 2003, 3001, "Kopitiam", "John", "Taman ABC", "012-333444555", "Completed", "18-12-2017", 3.5));
+
+        orderList.add(new staffOD(1001, 2006, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
+        orderList.add(new staffOD(1002, 2007, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
+    }
 
     public static int compareInput(String input) {
         if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("ye") || input.equalsIgnoreCase("yes")) {
@@ -34,6 +58,41 @@ public class MaintainStaff {
         } else {
             return -1; //Represent Invalid
         }
+    }
+
+    public static boolean comparePhoneNo(String phoneNo) {
+        Pattern pattern = Pattern.compile("\\d{3}-\\d{7,8}");
+        Matcher matcher = pattern.matcher(phoneNo);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static void exitMenu() {
+        String strInput;
+        do {
+            System.out.print("Return to HR Executive Module Menu or Exit (Y = Return / N = Exit) ? ");
+            strInput = scanner.nextLine();
+            if (compareInput(strInput) == 0) {
+                System.exit(0);
+            } else if (compareInput(strInput) == -1) {
+                System.out.println("Invalid Input");
+            }
+        } while (compareInput(strInput) != 1);
+    }
+
+    private static int getIntInput() {
+        int input;
+        while (!scanner.hasNextInt()) {
+            System.out.println("Please input a valid digit!");
+            System.out.print("Input Selection: ");
+            scanner.next();
+        }
+        input = scanner.nextInt();
+        scanner.nextLine();
+        return input;
     }
 
     public static void addStaff() {
@@ -51,8 +110,14 @@ public class MaintainStaff {
             System.out.println("Staff ID : " + newStaff.getID());
             System.out.print("Name : ");
             newStaff.setName(scanner.nextLine());
-            System.out.print("Phone Number : ");
-            newStaff.setPhoneNo(scanner.nextLine());
+            do {
+                System.out.print("Phone Number(xxx-xxxxxxx) : ");
+                input = scanner.nextLine();
+                if (!comparePhoneNo(input)) {
+                    System.out.println("Invalid Phone Number Format!");
+                }
+            } while (!comparePhoneNo(input));
+            newStaff.setPhoneNo(input);
             System.out.print("Address : ");
             newStaff.setAddress(scanner.nextLine());
             newStaff.setStatus("Active");
@@ -101,27 +166,24 @@ public class MaintainStaff {
             } while (compareInput(input) != 0);
         } while (doMore == true);
 
-        do {
-            System.out.print("Return to Main Menu or Exit (Y = Return / N = Exit) ? ");
-            input = scanner.nextLine();
-            if (compareInput(input) == 0) {
-                System.exit(0);
-            } else if (compareInput(input) == -1) {
-                System.out.println("Invalid Input");
-            }
-        } while (compareInput(input) != 1);
+        exitMenu();
     }
 
     public static void retrieveDeliveries() {
         Staff staff = null;
         int input = 0;
-        String strInput = null;
+        int count = 0;
 
         System.out.println("\n\n\n\n**Retrieve Pending Deliveries**");
         OUTER:
         do {
             do {
                 System.out.print("Input Staff ID (-1 to exit): ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Please input Staff ID in digit!");
+                    System.out.print("Input Staff ID (-1 to exit): ");
+                    scanner.next();
+                }
                 input = scanner.nextInt();
                 scanner.nextLine();
                 if (input == -1) {
@@ -154,7 +216,13 @@ public class MaintainStaff {
                 } else {
                     for (int i = 0; i < deliveryList.getSize(); i++) {
                         staffOD od = deliveryList.get(i);
-                        System.out.print(od.getOrderID() + " ");
+                        if (od.getStatus().equals("Pending")) {
+                            System.out.print(od.getOrderID() + " ");
+                            count++;
+                        }
+                    }
+                    if (count == 0) {
+                        System.out.println("Delivery list is empty.");
                     }
                 }
                 System.out.println("");
@@ -166,8 +234,7 @@ public class MaintainStaff {
                 }
                 System.out.println("0. Exit");
                 System.out.print("Input Selection: ");
-                input = scanner.nextInt();
-                scanner.nextLine();
+                input = getIntInput();
                 switch (input) {
                     case 0:
                         break OUTER;
@@ -181,6 +248,11 @@ public class MaintainStaff {
                             }
                             System.out.println("");
                             System.out.print("Input New Order ID: ");
+                            while (!scanner.hasNextInt()) {
+                                System.out.println("Please input Order ID in digit!");
+                                System.out.print("Input Order ID: ");
+                                scanner.next();
+                            }
                             input = scanner.nextInt();
                             scanner.nextLine();
 
@@ -208,23 +280,36 @@ public class MaintainStaff {
                     case 2: {
                         if (!deliveryList.isEmpty()) {
                             System.out.print("Input Order ID: ");
+                            while (!scanner.hasNextInt()) {
+                                System.out.println("Please input Order ID in digit!");
+                                System.out.print("Input Order ID: ");
+                                scanner.next();
+                            }
                             input = scanner.nextInt();
                             scanner.nextLine();
                             StaffADT<staffOD> odList = staff.getDeliveryList();
+                            Loop:
                             for (int i = 0; i < odList.getSize(); i++) {
                                 staffOD od = odList.get(i);
                                 if (input == od.getOrderID()) {
-                                    System.out.println("\n\n==Order Details==");
-                                    System.out.println("Order ID: " + od.getOrderID());
-                                    System.out.println("Restaurant Name(ID): " + od.getResName() + "(" + od.getResID() + ")");
-                                    System.out.println("Customer Name: " + od.getCustomerName());
-                                    System.out.println("Customer Address: " + od.getCustomerAdd());
-                                    break;
+                                    if (od.getStatus().equals("Pending")) {
+                                        System.out.println("\n\n==Order Details==");
+                                        System.out.println("Order ID: " + od.getOrderID());
+                                        System.out.println("Restaurant Name(ID): " + od.getResName() + "(" + od.getResID() + ")");
+                                        System.out.println("Customer Name: " + od.getCustomerName());
+                                        System.out.println("Customer Address: " + od.getCustomerAdd());
+                                        System.out.println("Customer Phone Number: " + od.getCustNo());
+                                        System.out.println("Date: " + od.getDate());
+                                        break Loop;
+                                    } else {
+                                        System.out.println("Order may be completed or invalid.");
+                                        break Loop;
+                                    }
                                 } else {
                                     System.out.println("Invalid Order ID");
+                                    break Loop;
                                 }
                             }
-
                             break;
                         }
                     }
@@ -233,16 +318,7 @@ public class MaintainStaff {
                 }
             } while (input != 0);
         } while (input != -1);
-
-        do {
-            System.out.print("Return to Main Menu or Exit (Y = Return / N = Exit) ? ");
-            strInput = scanner.nextLine();
-            if (compareInput(strInput) == 0) {
-                System.exit(0);
-            } else if (compareInput(strInput) == -1) {
-                System.out.println("Invalid Input");
-            }
-        } while (compareInput(strInput) != 1);
+        exitMenu();
     }
 
     public static void updateStaff() {
@@ -256,6 +332,11 @@ public class MaintainStaff {
         do {
             do {
                 System.out.print("Input Staff ID (-1 to exit): ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Please input Staff ID in digit!");
+                    System.out.print("Input Staff ID (-1 to exit): ");
+                    scanner.next();
+                }
                 input = scanner.nextInt();
                 scanner.nextLine();
                 if (input == -1) {
@@ -280,7 +361,12 @@ public class MaintainStaff {
                 System.out.println("2. Phone Number : " + staff.getPhoneNo());
                 System.out.println("3. Address : " + staff.getAddress());
                 System.out.println("0. Exit");
-                System.out.print("Select field to be updated (1-3):");
+                System.out.print("Select field to be updated (1-3 or 0 to Exit): ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Please input a valid digit!");
+                    System.out.print("Select field to be updated (1-3 or 0 to Exit): ");
+                    scanner.next();
+                }
                 input = scanner.nextInt();
                 scanner.nextLine();
                 switch (input) {
@@ -308,24 +394,30 @@ public class MaintainStaff {
                     }
                     case 2: {
                         System.out.println("Current Phone Number: " + staff.getPhoneNo());
-                        System.out.print("Input New Phone Number: ");
-                        temp = scanner.nextLine();
-                        if (!temp.equals("")) {
-                            do {
-                                System.out.print("Confirm update (Y/N) ? ");
-                                strInput = scanner.nextLine();
-                                if (compareInput(strInput) == 1) {
-                                    staff.setPhoneNo(temp);
-                                    break;
-                                } else {
-                                    System.out.println("Invalid Input");
+                        do {
+                            System.out.print("Input New Phone Number: ");
+                            temp = scanner.nextLine();
+                            if (!temp.equals("")) {
+                                if (!comparePhoneNo(temp)) {
+                                    System.out.println("Invalid Phone Number Format (xxx-xxxxxxx).");
                                 }
-                            } while (compareInput(strInput) != 0);
-                        } else {
-                            System.out.println("Phone number cannot be empty.");
-                        }
+                            } else {
+                                System.out.println("Phone number cannot be empty.");
+                            }
+                        } while (!comparePhoneNo(temp));
+                        do {
+                            System.out.print("Confirm update (Y/N) ? ");
+                            strInput = scanner.nextLine();
+                            if (compareInput(strInput) == 1) {
+                                staff.setPhoneNo(temp);
+                                break;
+                            } else {
+                                System.out.println("Invalid Input");
+                            }
+                        } while (compareInput(strInput) != 0);
                         break;
                     }
+
                     case 3: {
                         System.out.println("Current Address: " + staff.getAddress());
                         System.out.print("Input New Address: ");
@@ -352,19 +444,8 @@ public class MaintainStaff {
                 }
 
             } while (input != 0);
-        } while (input
-                != -1);
-
-        do {
-            System.out.print("Return to Main Menu or Exit (Y = Return / N = Exit) ? ");
-            strInput = scanner.nextLine();
-            if (compareInput(strInput) == 0) {
-                System.exit(0);
-            } else if (compareInput(strInput) == -1) {
-                System.out.println("Invalid Input");
-            }
-        } while (compareInput(strInput)
-                != 1);
+        } while (input != -1);
+        exitMenu();
     }
 
     public static void updateStatus() {
@@ -383,6 +464,11 @@ public class MaintainStaff {
         do {
             do {
                 System.out.print("Input Staff ID (-1 to exit): ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Please input Staff ID in digit!");
+                    System.out.print("Input Staff ID (-1 to exit): ");
+                    scanner.next();
+                }
                 input = scanner.nextInt();
                 scanner.nextLine();
                 if (input == -1) {
@@ -415,8 +501,7 @@ public class MaintainStaff {
                 System.out.println("0. Exit");
                 do {
                     System.out.print("Input Selection: ");
-                    input = scanner.nextInt();
-                    scanner.nextLine();
+                    input = getIntInput();
                     if (input == 0) {
                         break OUTER;
                     } else if (input < 1 || input > 3) {
@@ -504,49 +589,144 @@ public class MaintainStaff {
             } while (input != 0);
         } while (input != -1);
 
-        do {
-            System.out.print("Return to Main Menu or Exit (Y = Return / N = Exit) ? ");
-            strInput = scanner.nextLine();
-            if (compareInput(strInput) == 0) {
-                System.exit(0);
-            } else if (compareInput(strInput) == -1) {
-                System.out.println("Invalid Input");
-            }
-        } while (compareInput(strInput) != 1);
+        exitMenu();
     }
 
-    public static void main(String[] args) throws IOException {
-        //Intialize StaffLists
-        staffList.add(new Staff(1001, "Alex", "012-3456789", "123, Jalan ABC", "Active"));
+    public static void dailyReport() throws ParseException {
+        int input = 0;
+        String dateStr = null;
+        Date date = null;
+        boolean validDate = false;
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        StaffSortedList sortedList = new StaffSortedList();
+        boolean isEmpty = true;
 
-        StaffADT<foodOrdered> fo = new StaffADT<foodOrdered>();
-        fo.add(new foodOrdered(2001, "Nasi lemak", 1, 5.00));
-        fo.add(new foodOrdered(2001, "Burger", 1, 5.00));
-        fo.add(new foodOrdered(2001, "Kopi ice", 1, 2.00));
-        staffOD = new staffOD(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
-        staffList.get(0).addDelivery(staffOD);
-
-        fo = new StaffADT<>();
-        fo.add(new foodOrdered(2002, "Roti bakar", 2, 5.00));
-        fo.add(new foodOrdered(2002, "Telur", 2, 4.0));
-        fo.add(new foodOrdered(2002, "Milo Ais", 2, 2.50));
-        orderList.add(new staffOD(1001, 2002, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", fo));
-        fo = new StaffADT<>();
-        fo.add(new foodOrdered(2003, "Mee Rebus", 2, 5.0));
-        fo.add(new foodOrdered(2003, "Teh Ais", 1, 2.0));
-        orderList.add(new staffOD(1002, 2003, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", fo));
-
-        int input;
+        System.out.println("\n\n\n\n==Daily Report on Delivery Men==");
         do {
-            System.out.println("\n\n\n***HR Module***");
+            System.out.print("Input Date(DD-MM-YYYY) [-1 to Exit]: ");
+            dateStr = scanner.nextLine();
+            if (dateStr.equals("-1")) {
+                break;
+            }
+            try {
+                date = df.parse(dateStr);
+                break;
+            } catch (ParseException e) {
+                System.out.println("Invalid Date Format");
+            }
+        } while (validDate == false);
+
+        for (int i = 0; i < staffList.getSize(); i++) {
+            int tempCount = 0;
+            double tempDistance = 0;
+            Staff s = staffList.get(i);
+            StaffADT<staffOD> ODList = s.getDeliveryList();
+            for (int n = 0; n < ODList.getSize(); n++) {
+                staffOD OD = ODList.get(n);
+                if (OD.getDate().equals(dateStr)) {
+                    if (OD.getStatus().equalsIgnoreCase("Completed")) {
+                        tempCount++;
+                        tempDistance += OD.getDistance();
+                        isEmpty = false;
+                    }
+                }
+            }
+            s.setNoOfDoneDelivery(tempCount);
+            s.setTotalDistance(tempDistance);
+        }
+        if (!isEmpty) {
+            OUTER:
+            do {
+                System.out.println("\nReport Type:");
+                System.out.println("1. Total Deliveries Completed");
+                System.out.println("2. Total Distance Travelled");
+                System.out.println("0. Exit");
+                System.out.print("Input Selection: ");
+                input = getIntInput();
+                switch (input) {
+                    case 0:
+                        break;
+                    case 1: {
+                        int sum = 0;
+                        sortedList.bubble_srt(staffList, "Delivery");
+                        System.out.println("\n----Daily Report on Delivery Men's Total Deliveries Completed----");
+                        System.out.println("==================================================================");
+                        System.out.printf("|Report Date: %10s %8s Report Generated On: %10s|\n", dateStr, "", df.format(new Date()));
+                        System.out.println("------------------------------------------------------------------");
+                        System.out.print("|");
+                        System.out.println(" No. | Delivery Man's Name (ID)   |  Total Deliveries Completed |");
+                        System.out.println("------------------------------------------------------------------");
+                        for (int i = 0; i < staffList.getSize(); i++) {
+                            Staff s = staffList.get(i);
+                            if (staffList.get(i).getNoOfDoneDelivery() > 0) {
+                                System.out.printf("| %3d | %25s  | %28d|\n", i + 1, (s.getName() + "(" + s.getID() + ")"), s.getNoOfDoneDelivery());
+                                sum += staffList.get(i).getNoOfDoneDelivery();
+                            }
+                        }
+                        if (sum == 0) {
+                            System.out.printf("| %62s |\n", "No Records.");
+                        }
+                        System.out.println("==================================================================");
+                        if (sum > 0) {
+                            System.out.printf("%61s %3d", "Grand Total:", sum);
+                        }
+                        System.out.println("");
+                        break OUTER;
+                    }
+                    case 2: {
+                        double sum = 0;
+                        sortedList.bubble_srt(staffList, "Distance");
+                        System.out.println("\n----Daily Report on Delivery Men's Total Distance Travelled----");
+                        System.out.println("==================================================================");
+                        System.out.printf("|Report Date: %10s %8s Report Generated On: %10s|\n", dateStr, "", df.format(new Date()));
+                        System.out.println("------------------------------------------------------------------");
+                        System.out.print("|");
+                        System.out.println(" No. | Delivery Man's Name (ID)   | Total Distance Travelled(m) |");
+                        System.out.println("------------------------------------------------------------------");
+                        for (int i = 0; i < staffList.getSize(); i++) {
+                            Staff s = staffList.get(i);
+                            if (staffList.get(i).getTotalDistance() > 0) {
+                                System.out.printf("| %3d | %25s  | %28.2f|\n", i + 1, (s.getName() + "(" + s.getID() + ")"), s.getTotalDistance());
+                                sum += staffList.get(i).getTotalDistance();
+                            }
+                        }
+                        if (sum == 0) {
+                            System.out.printf("| %62s |\n", "No Records.");
+                        }
+                        System.out.println("==================================================================");
+                        if (sum > 0) {
+                            System.out.printf("%57s %7.2fm", "Grand Total:", sum);
+                        }
+                        System.out.println("");
+                        break OUTER;
+                    }
+                    default:
+                        System.out.println("Invalid Selection");
+                        break;
+                }
+            } while (input != 0);
+        } else {
+            System.out.println("No Records on Date " + dateStr + ".");
+        }
+        exitMenu();
+    }
+
+    public static void main(String[] args) throws IOException, ParseException {
+        //Intialize StaffLists
+        initializeData();
+
+        int input = 0;
+        do {
+            System.out.println("\n\n\n***HR Executive Module***");
             System.out.println("1. Add Staff");
             System.out.println("2. Retrieve Pending Deliveries");
             System.out.println("3. Update Staff Details");
             System.out.println("4. Update Staff Status");
+            System.out.println("5. Daily Report on Delivery Men");
             System.out.println("0. Exit");
             System.out.print("Input Selection : ");
-            input = scanner.nextInt();
-            scanner.nextLine();
+            input = getIntInput();
+
             switch (input) {
                 case 0:
                     break;
@@ -561,6 +741,9 @@ public class MaintainStaff {
                     break;
                 case 4:
                     updateStatus();
+                    break;
+                case 5:
+                    dailyReport();
                     break;
                 default:
                     System.out.println("Invalid Selection");
