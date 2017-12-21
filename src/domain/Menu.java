@@ -36,9 +36,7 @@ public class Menu {
     public Menu() {
 
     }
-  
     
-
     public Menu(int resId, int foodId, String food, double price) {
         this.resId = resId;
         this.foodId = foodId;
@@ -78,5 +76,4 @@ public class Menu {
     public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
-
 }

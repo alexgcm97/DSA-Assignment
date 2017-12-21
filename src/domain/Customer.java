@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package domain;
+
+/**
+ *
+ * @author junki
+ */
+public class Customer {
+    int custID;
+    String name;
+    String address;
+    String phoneNum;
+
+    public Customer(int custID, String name, String address, String phoneNum) {
+        this.custID = custID;
+        this.name = name;
+        this.address = address;
+        this.phoneNum = phoneNum;
+    }
+    
+    public Customer() {
+        
+    }
+
+    public int getCustID() {
+        return custID;
+    }
+
+    public void setCustID(int custID) {
+        this.custID = custID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+    
+    
+    
+}
