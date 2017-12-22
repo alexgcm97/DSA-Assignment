@@ -42,20 +42,22 @@ public class MaintainStaff {
         Date date = new Date();
 
         //Intialize deliveries data into staff object in staffList
-        staffList.get(0).addDelivery(new staffOD(2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Completed", "18-12-2017", 6));
-        staffList.get(0).addDelivery(new staffOD(2008, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 6));
+        staffList.get(3).addDelivery(new staffOD(2001, 3001, "Garden Cafe", "Robin", "Taman Bahagia", "012-9871234", "Completed", "12-12-2017", 8));
 
-        staffList.get(1).addDelivery(new staffOD(2002, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 3));
-        staffList.get(1).addDelivery(new staffOD(2003, 3001, "Kopitiam", "John", "Taman ABC", "012-333444555", "Completed", "18-12-2017", 3.5));
-        staffList.get(1).addDelivery(new staffOD(2004, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 8));
+        staffList.get(0).addDelivery(new staffOD(2002, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Completed", "18-12-2017", 6));
+        staffList.get(0).addDelivery(new staffOD(2009, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 6));
 
-        staffList.get(2).addDelivery(new staffOD(2005, 3002, "Garden Cafe", "Chelsea", "Taman Def", "012-4331547", "Completed", "18-12-2017", 5));
-        staffList.get(2).addDelivery(new staffOD(2006, 3001, "Kopitiam", "Steve", "Desa Park City", "013-4567789", "Completed", "18-12-2017", 7));
-        staffList.get(3).addDelivery(new staffOD(2007, 3001, "Garden Cafe", "Robin", "Taman Bahagia", "012-9871234", "Completed", "18-12-2017", 8));
+        staffList.get(1).addDelivery(new staffOD(2003, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 3));
+        staffList.get(1).addDelivery(new staffOD(2004, 3001, "Kopitiam", "John", "Taman ABC", "012-333444555", "Completed", "18-12-2017", 3.5));
+        staffList.get(1).addDelivery(new staffOD(2005, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 8));
+
+        staffList.get(2).addDelivery(new staffOD(2006, 3002, "Garden Cafe", "Chelsea", "Taman Def", "012-4331547", "Completed", "18-12-2017", 5));
+        staffList.get(2).addDelivery(new staffOD(2007, 3001, "Kopitiam", "Steve", "Desa Park City", "013-4567789", "Completed", "18-12-2017", 7));
+        staffList.get(3).addDelivery(new staffOD(2008, 3001, "Garden Cafe", "Robin", "Taman Bahagia", "012-9871234", "Completed", "18-12-2017", 8));
 
         //Initialize pending deliveries
-        orderList.add(new staffOD(2009, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
-        orderList.add(new staffOD(2010, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
+        orderList.add(new staffOD(2010, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
+        orderList.add(new staffOD(2011, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
     }
 
     public static int compareInput(String input) {
