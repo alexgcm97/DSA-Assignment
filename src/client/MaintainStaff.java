@@ -26,29 +26,40 @@ public class MaintainStaff {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final StaffADT<Staff> staffList = new StaffADT<Staff>();
-    private static int ID = 1003;
+    private static int ID = 1005;
     private static staffOD staffOD;
     private static final StaffADT<staffOD> orderList = new StaffADT<staffOD>();
+    private static int reportNo = 0001;
 
     public static void initializeData() {
+        //Initialize data into staffList
         staffList.add(new Staff(1001, "Alex", "012-3456789", "123, Jalan ABC", "Active"));
         staffList.add(new Staff(1002, "Jonathan", "013-44455566", "12, Jalan DEF", "Active"));
+        staffList.add(new Staff(1003, "Lily", "014-7894512", "35, Jalan Ros", "Active"));
+        staffList.add(new Staff(1004, "Crystal", "018-3357849", "12, Jalan IDK", "Active"));
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
 
+        //Intialize deliveries data into staff object in staffList
         staffList.get(0).addDelivery(new staffOD(2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Completed", "18-12-2017", 6));
-        staffList.get(0).addDelivery(new staffOD(2005, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 0));
+        staffList.get(0).addDelivery(new staffOD(2008, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", "Pending", dateFormat.format(date), 6));
 
-        staffList.get(1).addDelivery(new staffOD(2004, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 5));
-        staffList.get(1).addDelivery(new staffOD(2002, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 7));
+        staffList.get(1).addDelivery(new staffOD(2002, 3001, "Kopitiam", "Steve", "Taman Bunga", "013-4567789", "Completed", "18-12-2017", 3));
         staffList.get(1).addDelivery(new staffOD(2003, 3001, "Kopitiam", "John", "Taman ABC", "012-333444555", "Completed", "18-12-2017", 3.5));
+        staffList.get(1).addDelivery(new staffOD(2004, 3002, "Garden Cafe", "Chelsea", "Taman Bahagia", "012-4331547", "Completed", "18-12-2017", 8));
 
-        orderList.add(new staffOD(2006, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
-        orderList.add(new staffOD(2007, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
+        staffList.get(2).addDelivery(new staffOD(2005, 3002, "Garden Cafe", "Chelsea", "Taman Def", "012-4331547", "Completed", "18-12-2017", 5));
+        staffList.get(2).addDelivery(new staffOD(2006, 3001, "Kopitiam", "Steve", "Desa Park City", "013-4567789", "Completed", "18-12-2017", 7));
+        staffList.get(3).addDelivery(new staffOD(2007, 3001, "Garden Cafe", "Robin", "Taman Bahagia", "012-9871234", "Completed", "18-12-2017", 8));
+
+        //Initialize pending deliveries
+        orderList.add(new staffOD(2009, 3002, "Garden Cafe", "John", "Taman ABC", "0123456789(3)", "Pending", dateFormat.format(date), 0));
+        orderList.add(new staffOD(2010, 3002, "Garden Cafe", "Dennis", "Taman DEF", "012-333444999", "Pending", dateFormat.format(date), 0));
     }
 
     public static int compareInput(String input) {
+        //Method use to compare input for yes/no/exit
         if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("ye") || input.equalsIgnoreCase("yes")) {
             return 1; //Represent Yes
         } else if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
@@ -61,6 +72,7 @@ public class MaintainStaff {
     }
 
     public static boolean comparePhoneNo(String phoneNo) {
+        //Method use to compare phone number format
         Pattern pattern = Pattern.compile("\\d{3}-\\d{7,8}");
         Matcher matcher = pattern.matcher(phoneNo);
         if (matcher.matches()) {
@@ -71,6 +83,7 @@ public class MaintainStaff {
     }
 
     private static void exitMenu() {
+        //Method use to print exit menu
         String strInput;
         do {
             System.out.print("Return to HR Executive Module Menu or Exit (Y = Return / N = Exit) ? ");
@@ -84,6 +97,7 @@ public class MaintainStaff {
     }
 
     private static int getIntInput() {
+        //Method use to validate integer input & print error if invalid
         int input;
         while (!scanner.hasNextInt()) {
             System.out.println("Please input a valid digit!");
@@ -96,6 +110,7 @@ public class MaintainStaff {
     }
 
     public static void addStaff() {
+        //Method use to add new staff/delivery man into staffList
         boolean doMore;
         String input;
 
@@ -105,6 +120,7 @@ public class MaintainStaff {
             Staff newStaff = new Staff();
             newStaff.setID(ID);
 
+            //Print form for inputting data for new staff/delivery man
             System.out.println("\n\n\n***Staff Registration***\n");
             System.out.println("===Input Details===");
             System.out.println("Staff ID : " + newStaff.getID());
@@ -124,8 +140,10 @@ public class MaintainStaff {
             newStaff.setDeliveryList(new StaffADT<staffOD>());
 
             do {
+                //Prompt HR executive if want to verify the above input data
                 System.out.print("Verify Input Details (Y/N/Exit) ?  ");
                 input = scanner.nextLine();
+                //If yes, print the details
                 if (compareInput(input) == 1) {
                     System.out.println("\n===Verify Staff Details===");
                     System.out.println("Staff ID : " + newStaff.getID());
@@ -141,6 +159,7 @@ public class MaintainStaff {
             } while (compareInput(input) != 0);
 
             do {
+                //Prompt confirmation to add into system
                 System.out.print("Confirm add into system (Y/N/Exit) ? ");
                 input = scanner.nextLine();
                 if (compareInput(input) == 1) {
@@ -155,6 +174,7 @@ public class MaintainStaff {
             } while (compareInput(input) != 0);
 
             do {
+                //Prompt to add more staff or not
                 System.out.print("Add more staff (Y/N) ? ");
                 input = scanner.nextLine();
                 if (compareInput(input) == 1) {
@@ -656,7 +676,7 @@ public class MaintainStaff {
                         sortedList.bubble_srt(staffList, "Delivery");
                         System.out.println("\n----Daily Report on Delivery Men's Total Deliveries Completed----");
                         System.out.println("==================================================================");
-                        System.out.printf("|Report Date: %10s %8s Report Generated On: %10s|\n", dateStr, "", df.format(new Date()));
+                        System.out.printf("|Report Date: %10s %20s Report No: %8d|\n", dateStr, "", reportNo);
                         System.out.println("------------------------------------------------------------------");
                         System.out.print("|");
                         System.out.println(" No. | Delivery Man's Name (ID)   |  Total Deliveries Completed |");
@@ -673,9 +693,10 @@ public class MaintainStaff {
                         }
                         System.out.println("==================================================================");
                         if (sum > 0) {
-                            System.out.printf("%61s %3d", "Grand Total:", sum);
+                            System.out.printf("%61s %3d\n", "Grand Total:", sum);
                         }
-                        System.out.println("");
+                        System.out.printf("Report Generated on: %s\n\n", df.format(new Date()));
+                        reportNo++;
                         break OUTER;
                     }
                     case 2: {
@@ -683,7 +704,7 @@ public class MaintainStaff {
                         sortedList.bubble_srt(staffList, "Distance");
                         System.out.println("\n----Daily Report on Delivery Men's Total Distance Travelled----");
                         System.out.println("==================================================================");
-                        System.out.printf("|Report Date: %10s %8s Report Generated On: %10s|\n", dateStr, "", df.format(new Date()));
+                        System.out.printf("|Report Date: %10s %20s Report No: %8d|\n", dateStr, "", reportNo);
                         System.out.println("------------------------------------------------------------------");
                         System.out.print("|");
                         System.out.println(" No. | Delivery Man's Name (ID)   | Total Distance Travelled(m) |");
@@ -700,9 +721,10 @@ public class MaintainStaff {
                         }
                         System.out.println("==================================================================");
                         if (sum > 0) {
-                            System.out.printf("%57s %7.2fm", "Grand Total:", sum);
+                            System.out.printf("%57s %7.2fm\n", "Grand Total:", sum);
                         }
-                        System.out.println("");
+                        System.out.printf("Report Generated on: %s\n\n", df.format(new Date()));
+                        reportNo++;
                         break OUTER;
                     }
                     default:
