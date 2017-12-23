@@ -5,6 +5,7 @@
  */
 package domain;
 
+import adt.DeliveryADT;
 import java.util.ArrayList;
 
 /**
@@ -20,14 +21,13 @@ public class orderDetails {
     private String customerName;
     private String customerAdd;
     private String custNo;
-    private ArrayList food;
+    private DeliveryADT food;
     private String status;
 
     public orderDetails() {
 
     }
-
-    public orderDetails(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, ArrayList food) {
+    public orderDetails(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo,DeliveryADT food) {
 
         this.staffID = staffID;
         this.orderID = orderID;
@@ -45,11 +45,11 @@ public class orderDetails {
         this.resName = resName;
     }
 
-    public ArrayList getFood() {
+    public DeliveryADT getFood() {
         return food;
     }
 
-    public void setFood(ArrayList food) {
+    public void setFood(DeliveryADT food) {
         this.food = food;
     }
 
