@@ -36,6 +36,7 @@ public class MakeOrder {
     private static int count = 0;
     private static String next;
     private static int quant;
+      private static boolean foundId = false;
 
     public static void initializeMenu() {
         menuList.add(new Menu(9001, 1, "Nasi Lemak    ", 5.00));
@@ -54,9 +55,9 @@ public class MakeOrder {
         menuList2.add(new Menu(9002, 6, "Apple Juice  ", 3.00));
         resList.add(new Restaurant(9002, "Garden Cafe ", menuList2));
         
-        cList.add(new Customer(1001, "Derek", "TBR", "011-1234567"));
+        cList.add(new Customer(1001, "Derek", "TBR", "012-3456789"));
         
-        retrieveCus();
+        MakeOrder();
     }
 
     public static void login() {
@@ -68,7 +69,11 @@ public class MakeOrder {
             id = scan.nextInt();
             System.out.print("Enter Password: ");
             psw = scan.next();
+            if(id != 2001 || !psw.equals("AAA111")){
+                System.out.println("Invalid username and password\n");
+            }
         } while (id != 2001 || !psw.equals("AAA111"));
+        
         initializeMenu();
     }
 
@@ -86,6 +91,9 @@ public class MakeOrder {
             scan.nextLine();
             if (ans == 9001 || ans == 9002) {
                 resId = ans;
+            }
+            else if (ans < 9001 || ans > 9002){
+                System.out.println("Invalid restaurant ID! Please try again.");
             }
         } while (ans < 9001 || ans > 9002);
         viewMenu();
@@ -139,7 +147,11 @@ public class MakeOrder {
 
                 foList.add(fo);
 
+            }else {
+                System.out.println("Invalid food ID.");
+                System.out.println("Please enter again.");
             }
+            
         } while (ans < 1 || ans > 6);
         do {
             System.out.println("Any more order? (Y/N)");
@@ -150,7 +162,11 @@ public class MakeOrder {
                 } else if (next.equalsIgnoreCase("n")) {
                     summary();
                 }
+
             }
+            else if (!next.equals("Y") && !next.equals("N")){
+            System.out.println("Invalid input! Please try again.");
+                }
         } while (next != "Y" && next != "N");
 
     }
@@ -159,22 +175,22 @@ public class MakeOrder {
 
         totalAmount = 0.0;
         System.out.println("---------------------------------------------------");
-        System.out.println("|               Your Order Details                |");
+        System.out.println("|               Your Order Details                 |");
         System.out.println("---------------------------------------------------");
-        System.out.println("| Food ID |     Food Name    | Quantity |  Price  |");
+        System.out.println("| Food ID |     Food Name    | Quantity |  Price   |");
         System.out.println("---------------------------------------------------");
 
         for (j = 0; j < foList.getSize(); j++) {
-            System.out.println("|    " + foList.getData(j).getFoodID() + "         " + foList.getData(j).getFood() + "     " + foList.getData(j).getQuantity() + "        RM " + (foList.getData(j).getPrice() * foList.getData(j).getQuantity()) + " |");
+            System.out.println("|    " + foList.getData(j).getFoodID() + "         " + foList.getData(j).getFood() + "    " + foList.getData(j).getQuantity() + "        RM " + (foList.getData(j).getPrice() * foList.getData(j).getQuantity()));
             totalAmount += (foList.getData(j).getPrice()) * (foList.getData(j).getQuantity());
         }
 
         System.out.println("---------------------------------------------------");
-        System.out.printf("|                                  Total:  RM %.1f |\n", totalAmount);
+        System.out.printf("|                                  Total:  RM %.1f \n", totalAmount);
         System.out.println("---------------------------------------------------");
 
-        System.out.println();
-        confirmOrder();
+        
+        changeQuantity();
 
        
 
@@ -182,27 +198,27 @@ public class MakeOrder {
 
     public static void confirmOrder() {
         System.out.println("Please Confirm your order (Y/N)");
-        String co = scan.nextLine();
+        String co = scan.next();
 
         if (co.equalsIgnoreCase("y")) {
 
             System.out.println("\n\nThank you for ordering from us! Please come again.");
 
             totalAmount = 0.0;
-            System.out.println("---------------------------------------------------");
-            System.out.println("|               Order Confirmed                   |");
-            System.out.println("---------------------------------------------------");
-            System.out.println("| Food ID |     Food Name    | Quantity |  Price  |");
-            System.out.println("---------------------------------------------------");
+            System.out.println("------------------------------------------------------");
+            System.out.println("|               Order Confirmed                      |");
+            System.out.println("------------------------------------------------------");
+            System.out.println("| Food ID |     Food Name    | Quantity |  Price     |");
+            System.out.println("------------------------------------------------------");
 
             for (j = 0; j < foList.getSize(); j++) {
-                System.out.println("|    " + foList.getData(j).getFoodID() + "         " + foList.getData(j).getFood() + "     " + foList.getData(j).getQuantity() + "        RM " + (foList.getData(j).getPrice() * foList.getData(j).getQuantity()) + " |");
+                System.out.println("|    " + foList.getData(j).getFoodID() + "         " + foList.getData(j).getFood() + "     " + foList.getData(j).getQuantity() + "        RM " + (foList.getData(j).getPrice() * foList.getData(j).getQuantity()) + "  |");
                 totalAmount += (foList.getData(j).getPrice()) * (foList.getData(j).getQuantity());
             }
 
-            System.out.println("---------------------------------------------------");
-            System.out.printf("|                                   Total: RM %.1f |\n", totalAmount);
-            System.out.println("---------------------------------------------------");
+            System.out.println("------------------------------------------------------");
+            System.out.printf("|                                   Total: RM %.1f   |\n", totalAmount);
+            System.out.println("------------------------------------------------------");
 
             System.out.println();
             MakeOrder();
@@ -218,40 +234,47 @@ public class MakeOrder {
     }
 
     public static void changeQuantity() {
-        boolean foundId = false;
+        
 
         System.out.println("Do you wish to change the quantity of the food ? (Y/N)");
         String change = scan.next();
         if (change.equalsIgnoreCase("y")) {
-            System.out.println("Enter food Id");
+            System.out.print("Enter food Id : ");
             int id = scan.nextInt();
             for (int j = 0; j < foList.getSize(); j++) {
                 if (id == foList.getData(j).getFoodID()) {
                     foundId = true;
-                }
-
-                if (foundId == false) {
-                    System.out.println("Invalid ID");
-                    changeQuantity();
-                }
-
+                
                 do {
-                    System.out.print("Quantity:");
+                    System.out.print("Quantity : ");
                     quant = scan.nextInt();
-                    if (quant < 20) {
+                    if (quant <= 20) {
                         foList.getData(j).setQuantity(quant);
                         summary();
+                        
                     } else if (quant > 20) {
                         System.out.println("Quantity should be less than 20");
+                        changeQuantity();
                     }
+                 
 
-                } while (quant < 20);
-            }
+                    } while (quant < 20);
+                }
+                else {
+                    System.out.println("Invalid food Id. Please try again");
+                    changeQuantity();
+                }
+            }     
         } else if (change.equalsIgnoreCase("n")) {
             confirmOrder();
-        } else {
-            changeQuantity();
         }
+        else {
+             System.out.println("Invalid input! Please try again.");
+            changeQuantity();
+           
+            
+        }
+       
 
     }
 
