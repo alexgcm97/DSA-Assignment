@@ -1,7 +1,7 @@
 package client;
 
 import adt.StaffADT;
-import adt.StaffSortedList;
+import adt.StaffSortList;
 import domain.Staff;
 import domain.staffOD;
 import java.io.IOException;
@@ -622,7 +622,7 @@ public class MaintainStaff {
         Date date = null;
         boolean validDate;
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        StaffSortedList sortedList = new StaffSortedList();
+        StaffSortList sortedList = new StaffSortList();
         boolean isEmpty = true;
 
         System.out.println("\n\n\n\n==Daily Report on Delivery Men==");
@@ -675,7 +675,7 @@ public class MaintainStaff {
                         break;
                     case 1: {
                         int sum = 0;
-                        sortedList.bubble_srt(staffList, "Delivery");
+                        sortedList.bubble_sort(staffList, "Delivery");
                         System.out.println("\n----Daily Report on Delivery Men's Total Deliveries Completed----");
                         System.out.println("==================================================================");
                         System.out.printf("|Report Date: %10s %20s Report No: %8d|\n", dateStr, "", reportNo);
@@ -703,7 +703,7 @@ public class MaintainStaff {
                     }
                     case 2: {
                         double sum = 0;
-                        sortedList.bubble_srt(staffList, "Distance");
+                        sortedList.bubble_sort(staffList, "Distance");
                         System.out.println("\n----Daily Report on Delivery Men's Total Distance Travelled----");
                         System.out.println("==================================================================");
                         System.out.printf("|Report Date: %10s %20s Report No: %8d|\n", dateStr, "", reportNo);

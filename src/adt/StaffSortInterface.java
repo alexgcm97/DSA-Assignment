@@ -13,8 +13,14 @@ import domain.Staff;
  */
 public interface StaffSortInterface<T> {
 
-    void bubble_srt(StaffADT<Staff> list, String type);
+    /*Do sorting for the linked list, by passing in the linked list 
+      &sort according to what type of report.
+    */
+    void bubble_sort(StaffADT<Staff> list, String type);
 
-    void swap(int i, int j, StaffADT<Staff> list);
+    /*Do the swapping of position between the current entry and next entry
+      in the linked list.
+    */
+    void swap(int index, int nextIndex, StaffADT<Staff> list);
 
 }
