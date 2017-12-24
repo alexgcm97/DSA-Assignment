@@ -24,7 +24,6 @@ public class Customer {
     }
 
     public Customer() {
-
     }
 
     public int getCustID() {
@@ -58,5 +57,4 @@ public class Customer {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
-
 }

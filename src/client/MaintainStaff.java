@@ -621,7 +621,7 @@ public class MaintainStaff {
         StaffSortList sortedList = new StaffSortList();
         boolean isEmpty = true;
 
-        System.out.println("\n\n\n\n==Daily Report on Delivery Men==");
+        System.out.println("\n\n\n\n==Daily Report==");
         do {
             System.out.print("Input Date(DD-MM-YYYY) [-1 to Exit]: ");
             dateStr = scanner.nextLine();
@@ -747,7 +747,7 @@ public class MaintainStaff {
             System.out.println("2. Retrieve Pending Deliveries");
             System.out.println("3. Update Staff Details");
             System.out.println("4. Update Staff Status");
-            System.out.println("5. Daily Report on Delivery Men");
+            System.out.println("5. Daily Report");
             System.out.println("0. Exit");
             System.out.print("Input Selection : ");
             input = getIntInput();
