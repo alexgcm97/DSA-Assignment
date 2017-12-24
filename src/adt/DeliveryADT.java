@@ -9,8 +9,9 @@ package adt;
  *
  * @author REPUBLIC
  */
-public class DeliveryADT<T> implements DeliveryInterface<T>{
-       private Node firstNode, lastNode;
+public class DeliveryADT<T> implements DeliveryInterface<T> {
+
+    private Node firstNode, lastNode;
     private int size;
 
     @Override
@@ -141,5 +142,4 @@ public class DeliveryADT<T> implements DeliveryInterface<T>{
             this.previous = previous;
         }
     }
-
 }

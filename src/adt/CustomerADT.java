@@ -10,11 +10,11 @@ package adt;
  * @author junkit
  */
 public class CustomerADT<T> implements CustomerInterface<T> {
-private Node firstNode, lastNode;
+
+    private Node firstNode, lastNode;
     private int size;
 
-   
-@Override
+    @Override
     public void add(T newEntry) {
         Node newNode = new Node(newEntry);
         if (isEmpty()) {
@@ -27,8 +27,7 @@ private Node firstNode, lastNode;
         size++;
     }
 
-  
-@Override
+    @Override
     public String toString() {
         String str = "";
         Node temp = firstNode;
@@ -39,16 +38,16 @@ private Node firstNode, lastNode;
         return str;
     }
 
-    
-@Override
+    @Override
     public boolean remove(T anEntry) {
         if (!isEmpty()) {   //check empty list
             if (firstNode.data.equals(anEntry)) {   // remove first node
                 firstNode = firstNode.next;
                 if (firstNode == null) {
                     lastNode = null;
-                } else 
+                } else {
                     firstNode.previous = null;
+                }
                 size--;
                 return true;
             }
@@ -71,8 +70,7 @@ private Node firstNode, lastNode;
         return false;
     }
 
-   
-@Override
+    @Override
     public T getData(int element) {
         Node tmp = firstNode;
         T tmp1 = null;
@@ -82,8 +80,8 @@ private Node firstNode, lastNode;
         }
         return tmp1;
     }
-    
-@Override
+
+    @Override
     public boolean contains(T anEntry) {
         if (!isEmpty()) {
             Node temp = firstNode;
@@ -99,20 +97,17 @@ private Node firstNode, lastNode;
         return false;
     }
 
-    
-@Override
+    @Override
     public int getSize() {
         return size;
     }
 
- 
-@Override
+    @Override
     public boolean isEmpty() {
         return firstNode == null;
     }
 
-
-@Override
+    @Override
     public String toStringReverse() {
         String str = "";
         Node temp = lastNode;

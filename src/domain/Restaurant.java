@@ -12,21 +12,21 @@ import adt.CustomerADT;
  * @author junki
  */
 public class Restaurant {
-    
+
     int resId;
     String resName;
     CustomerADT<Menu> menuList = new CustomerADT<Menu>();
 
-    public Restaurant(){
-        
+    public Restaurant() {
+
     }
-    
-    public Restaurant(int resId, String resName, CustomerADT<Menu> menuList){
+
+    public Restaurant(int resId, String resName, CustomerADT<Menu> menuList) {
         this.resId = resId;
         this.resName = resName;
         this.menuList = menuList;
-    } 
-    
+    }
+
     public int getResId() {
         return resId;
     }
@@ -49,5 +49,5 @@ public class Restaurant {
 
     public void setMenuList(CustomerADT<Menu> menuList) {
         this.menuList = menuList;
-    }    
+    }
 }

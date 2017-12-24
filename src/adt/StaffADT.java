@@ -142,5 +142,4 @@ public class StaffADT<T> implements StaffInterface<T> {
             this.previous = previous;
         }
     }
-
 }

@@ -10,16 +10,17 @@ package domain;
  * @author REPUBLIC
  */
 public class foodOrdered {
+
     private int orderID;
     private int foodID;
     private String food;
     private int quantity;
     private double price;
 
-    public foodOrdered(){
-        
+    public foodOrdered() {
+
     }
-        
+
     public foodOrdered(int orderID, int foodID, String food, int quantity, double price) {
         this.orderID = orderID;
         this.foodID = foodID;
@@ -27,14 +28,14 @@ public class foodOrdered {
         this.quantity = quantity;
         this.price = price;
     }
-    
+
     public foodOrdered(int orderID, String food, int quantity, double price) {
         this.orderID = orderID;
         this.food = food;
         this.quantity = quantity;
         this.price = price;
     }
-   
+
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
@@ -46,7 +47,7 @@ public class foodOrdered {
     public void setFoodID(int foodID) {
         this.foodID = foodID;
     }
-    
+
     public void setFood(String food) {
         this.food = food;
     }
@@ -66,14 +67,13 @@ public class foodOrdered {
     public int getQuantity() {
         return quantity;
     }
-    
-    public void setPrie(double price){
+
+    public void setPrie(double price) {
         this.price = price;
     }
-    
-    public double getPrice(){
+
+    public double getPrice() {
         return price;
     }
-   
-    
+
 }

@@ -1,14 +1,10 @@
 package client;
 
 import adt.CustomerADT;
-import static client.CheckOrder.fo;
-import static client.CheckOrder.fo1;
-import static client.CheckOrder.fo2;
 import domain.Customer;
 import domain.Menu;
 import domain.Restaurant;
 import domain.foodOrdered;
-import domain.orderDetails;
 import java.util.Scanner;
 
 /*
@@ -36,7 +32,7 @@ public class MakeOrder {
     private static int count = 0;
     private static String next;
     private static int quant;
-      private static boolean foundId = false;
+    private static boolean foundId = false;
 
     public static void initializeMenu() {
         menuList.add(new Menu(9001, 1, "Nasi Lemak    ", 5.00));
@@ -54,9 +50,9 @@ public class MakeOrder {
         menuList2.add(new Menu(9002, 5, "Orange Juice ", 3.00));
         menuList2.add(new Menu(9002, 6, "Apple Juice  ", 3.00));
         resList.add(new Restaurant(9002, "Garden Cafe ", menuList2));
-        
+
         cList.add(new Customer(1001, "Derek", "TBR", "012-3456789"));
-        
+
         MakeOrder();
     }
 
@@ -69,11 +65,11 @@ public class MakeOrder {
             id = scan.nextInt();
             System.out.print("Enter Password: ");
             psw = scan.next();
-            if(id != 2001 || !psw.equals("AAA111")){
+            if (id != 2001 || !psw.equals("AAA111")) {
                 System.out.println("Invalid username and password\n");
             }
         } while (id != 2001 || !psw.equals("AAA111"));
-        
+
         initializeMenu();
     }
 
@@ -84,15 +80,14 @@ public class MakeOrder {
             System.out.println("=============================");
             for (int i = 0; i < resList.getSize(); i++) {
                 System.out.println(resList.getData(i).getResId() + ". " + resList.getData(i).getResName());
-                
+
             }
             System.out.print("Enter restaurant no. :");
             ans = scan.nextInt();
             scan.nextLine();
             if (ans == 9001 || ans == 9002) {
                 resId = ans;
-            }
-            else if (ans < 9001 || ans > 9002){
+            } else if (ans < 9001 || ans > 9002) {
                 System.out.println("Invalid restaurant ID! Please try again.");
             }
         } while (ans < 9001 || ans > 9002);
@@ -112,7 +107,7 @@ public class MakeOrder {
             for (int i = 0; i < resList.getSize(); i++) {
                 if (resId == resList.getData(i).getResId()) {
                     resId = resList.getData(i).getResId();
-                    for (int index = 0; index < resList.getData(i).getMenuList().getSize(); index++){
+                    for (int index = 0; index < resList.getData(i).getMenuList().getSize(); index++) {
                         Menu m = resList.getData(i).getMenuList().getData(index);
                         System.out.println("|  " + m.getFoodId() + ". | " + m.getFood() + " |  " + "RM " + m.getPrice() + " |");
                         System.out.println("----------------------------------");
@@ -129,8 +124,8 @@ public class MakeOrder {
 
                 for (int i = 0; i < resList.getSize(); i++) {
                     if (resId == resList.getData(i).getResId()) {
-                        for (int index = 0; index < resList.getData(i).getMenuList().getSize(); index++){
-                        Menu m = resList.getData(i).getMenuList().getData(index);
+                        for (int index = 0; index < resList.getData(i).getMenuList().getSize(); index++) {
+                            Menu m = resList.getData(i).getMenuList().getData(index);
                             if (ans == m.getFoodId()) {
                                 fo.setFoodID(m.getFoodId());
                                 fo.setFood(m.getFood());
@@ -147,11 +142,11 @@ public class MakeOrder {
 
                 foList.add(fo);
 
-            }else {
+            } else {
                 System.out.println("Invalid food ID.");
                 System.out.println("Please enter again.");
             }
-            
+
         } while (ans < 1 || ans > 6);
         do {
             System.out.println("Any more order? (Y/N)");
@@ -163,10 +158,9 @@ public class MakeOrder {
                     summary();
                 }
 
+            } else if (!next.equals("Y") && !next.equals("N")) {
+                System.out.println("Invalid input! Please try again.");
             }
-            else if (!next.equals("Y") && !next.equals("N")){
-            System.out.println("Invalid input! Please try again.");
-                }
         } while (next != "Y" && next != "N");
 
     }
@@ -189,10 +183,7 @@ public class MakeOrder {
         System.out.printf("|                                  Total:  RM %.1f \n", totalAmount);
         System.out.println("---------------------------------------------------");
 
-        
         changeQuantity();
-
-       
 
     }
 
@@ -229,12 +220,10 @@ public class MakeOrder {
             System.out.println("Invalid Input. (Y = Yes/N = No )");
             confirmOrder();
         }
-        
 
     }
 
     public static void changeQuantity() {
-        
 
         System.out.println("Do you wish to change the quantity of the food ? (Y/N)");
         String change = scan.next();
@@ -244,37 +233,32 @@ public class MakeOrder {
             for (int j = 0; j < foList.getSize(); j++) {
                 if (id == foList.getData(j).getFoodID()) {
                     foundId = true;
-                
-                do {
-                    System.out.print("Quantity : ");
-                    quant = scan.nextInt();
-                    if (quant <= 20) {
-                        foList.getData(j).setQuantity(quant);
-                        summary();
-                        
-                    } else if (quant > 20) {
-                        System.out.println("Quantity should be less than 20");
-                        changeQuantity();
-                    }
-                 
+
+                    do {
+                        System.out.print("Quantity : ");
+                        quant = scan.nextInt();
+                        if (quant <= 20) {
+                            foList.getData(j).setQuantity(quant);
+                            summary();
+
+                        } else if (quant > 20) {
+                            System.out.println("Quantity should be less than 20");
+                            changeQuantity();
+                        }
 
                     } while (quant < 20);
-                }
-                else {
+                } else {
                     System.out.println("Invalid food Id. Please try again");
                     changeQuantity();
                 }
-            }     
+            }
         } else if (change.equalsIgnoreCase("n")) {
             confirmOrder();
-        }
-        else {
-             System.out.println("Invalid input! Please try again.");
+        } else {
+            System.out.println("Invalid input! Please try again.");
             changeQuantity();
-           
-            
+
         }
-       
 
     }
 

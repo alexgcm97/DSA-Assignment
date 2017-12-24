@@ -10,6 +10,7 @@ package domain;
  * @author junki
  */
 public class Menu {
+
     int resId;
     int foodId;
     String food;
@@ -36,22 +37,21 @@ public class Menu {
     public Menu() {
 
     }
-    
+
     public Menu(int resId, int foodId, String food, double price) {
         this.resId = resId;
         this.foodId = foodId;
         this.food = food;
         this.price = price;
     }
-    
-    public Menu(int foodId, String food,String foodDesc, double price,String stock){
+
+    public Menu(int foodId, String food, String foodDesc, double price, String stock) {
         this.foodId = foodId;
         this.food = food;
         this.foodDesc = foodDesc;
         this.price = price;
         this.stock = stock;
     }
-    
 
     public void setFood(String food) {
         this.food = food;

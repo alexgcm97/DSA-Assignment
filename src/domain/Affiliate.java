@@ -42,7 +42,7 @@ public class Affiliate {
     public void setType(String type) {
         this.companyType = type;
     }
-    
+
     public String getCompanyaddress() {
         return companyaddress;
     }
@@ -106,7 +106,7 @@ public class Affiliate {
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
         this.ownerPhoneNumber = ownerPhoneNumber;
     }
-    
+
     private int licenseNumber;
     private String companyName;
     private String companyaddress;
@@ -117,12 +117,9 @@ public class Affiliate {
     private int ownerICNumb;
     private String ownerAddress;
     private String ownerPhoneNumber;
-
-    
-      
     private String userName;
     private String password;
-    
+
     public String getUserName() {
         return userName;
     }
@@ -138,5 +135,5 @@ public class Affiliate {
     public void setPassword(String password) {
         this.password = password;
     }
-  
+
 }

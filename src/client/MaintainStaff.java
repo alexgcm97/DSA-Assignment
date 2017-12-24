@@ -187,7 +187,6 @@ public class MaintainStaff {
                 }
             } while (compareInput(input) != 0);
         } while (doMore == true);
-
         exitMenu();
     }
 
@@ -232,7 +231,6 @@ public class MaintainStaff {
                 if (!staff.getDeliveryList().isEmpty()) {
                     deliveryList = staff.getDeliveryList();
                 }
-
                 System.out.println("\n\n\n\n==Pending Deliveries==");
                 System.out.println("Staff Name(ID): " + staff.getName() + "(" + staff.getID() + ")");
                 System.out.print("Order IDs: ");
@@ -466,7 +464,6 @@ public class MaintainStaff {
                         System.out.println("Invalid Selection");
                     }
                 }
-
             } while (input != 0);
         } while (input != -1);
         exitMenu();
@@ -612,7 +609,6 @@ public class MaintainStaff {
                 }
             } while (input != 0);
         } while (input != -1);
-
         exitMenu();
     }
 
@@ -755,7 +751,6 @@ public class MaintainStaff {
             System.out.println("0. Exit");
             System.out.print("Input Selection : ");
             input = getIntInput();
-
             switch (input) {
                 case 0:
                     break;

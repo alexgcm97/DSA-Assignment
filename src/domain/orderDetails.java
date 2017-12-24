@@ -6,7 +6,6 @@
 package domain;
 
 import adt.DeliveryADT;
-import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +26,8 @@ public class orderDetails {
     public orderDetails() {
 
     }
-    public orderDetails(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo,DeliveryADT food) {
+
+    public orderDetails(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, DeliveryADT food) {
 
         this.staffID = staffID;
         this.orderID = orderID;

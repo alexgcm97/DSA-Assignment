@@ -10,6 +10,7 @@ package domain;
  * @author junki
  */
 public class Customer {
+
     int custID;
     String name;
     String address;
@@ -21,9 +22,9 @@ public class Customer {
         this.address = address;
         this.phoneNum = phoneNum;
     }
-    
+
     public Customer() {
-        
+
     }
 
     public int getCustID() {
@@ -57,7 +58,5 @@ public class Customer {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
-    
-    
-    
+
 }
