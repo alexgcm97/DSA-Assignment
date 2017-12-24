@@ -9,7 +9,7 @@ package domain;
  *
  * @author junki
  */
-public class Menu {
+public class Menu implements Comparable<Menu> {
 
     int resId;
     int foodId;
@@ -45,8 +45,7 @@ public class Menu {
         this.price = price;
     }
 
-    public Menu(int foodId, String food, String foodDesc, double price, String stock) {
-        this.foodId = foodId;
+    public Menu(String food, String foodDesc, double price, String stock) {
         this.food = food;
         this.foodDesc = foodDesc;
         this.price = price;
@@ -75,5 +74,10 @@ public class Menu {
 
     public void setFoodId(int foodId) {
         this.foodId = foodId;
+    }
+
+    @Override
+    public int compareTo(Menu o) {
+        return this.getFood().compareTo(o.getFood());
     }
 }

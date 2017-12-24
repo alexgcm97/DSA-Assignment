@@ -28,7 +28,7 @@ public class MainMenu {
                 case 0:
                     break;
                 case 1:
-                    AffiliateRegisteration.main(args);
+                    AffiliateMaintain.main(args);
                     break;
                 case 2:
                     MaintainStaff.main(args);

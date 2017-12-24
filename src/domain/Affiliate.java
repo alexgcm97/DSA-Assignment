@@ -9,8 +9,39 @@ package domain;
  *
  * @author Julian
  */
-public class Affiliate {
+public class Affiliate implements Comparable<Affiliate> {
+    
+    private int licenseNumber;
+    private String companyName;
+    private String companyAddress;
+    private String companyType;
+    private String joinDate;
+    private String ownerName;
+    private String ownerGender;
+    private String ownerICNumb;
+    private String ownerAddress;
+    private String ownerPhoneNumber;
+    private String userName;
+    private String password;
 
+    public Affiliate(int licenseNumber, String companyName, String companyAddress, String companyType, String joinDate, String ownerName, String ownerGender, String ownerICNumb, String ownerAddress, String ownerPhoneNumber, String userName, String password) {
+        this.licenseNumber = licenseNumber;         //1001
+        this.companyName = companyName;             //Moi Restaurant
+        this.companyAddress = companyAddress;       //1, Jalan Duta 2, 55100 KL
+        this.companyType = companyType;             //Restaurant
+        this.joinDate = joinDate;                   //25-DEC-2016
+        this.ownerName = ownerName;                 //MoMoi
+        this.ownerGender = ownerGender;             //M
+        this.ownerICNumb = ownerICNumb;             //970503-35-1234
+        this.ownerAddress = ownerAddress;           //2, Jalan Bunga 3, 55100 KL
+        this.ownerPhoneNumber = ownerPhoneNumber;   //012-3322132
+        this.userName = userName;                   //Moi
+        this.password = password;                   //1234
+    }
+
+    public Affiliate() {
+       
+    }
     public int getLicenseNumber() {
         return licenseNumber;
     }
@@ -28,11 +59,11 @@ public class Affiliate {
     }
 
     public String getAddress() {
-        return companyaddress;
+        return companyAddress;
     }
 
     public void setAddress(String address) {
-        this.companyaddress = address;
+        this.companyAddress = address;
     }
 
     public String getType() {
@@ -44,11 +75,11 @@ public class Affiliate {
     }
 
     public String getCompanyaddress() {
-        return companyaddress;
+        return companyAddress;
     }
 
     public void setCompanyaddress(String companyaddress) {
-        this.companyaddress = companyaddress;
+        this.companyAddress = companyaddress;
     }
 
     public String getCompanyType() {
@@ -83,11 +114,11 @@ public class Affiliate {
         this.ownerGender = ownerGender;
     }
 
-    public int getOwnerICNumb() {
+    public String getOwnerICNumb() {
         return ownerICNumb;
     }
 
-    public void setOwnerICNumb(int ownerICNumb) {
+    public void setOwnerICNumb(String ownerICNumb) {
         this.ownerICNumb = ownerICNumb;
     }
 
@@ -107,18 +138,7 @@ public class Affiliate {
         this.ownerPhoneNumber = ownerPhoneNumber;
     }
 
-    private int licenseNumber;
-    private String companyName;
-    private String companyaddress;
-    private String companyType;
-    private String joinDate;
-    private String ownerName;
-    private String ownerGender;
-    private int ownerICNumb;
-    private String ownerAddress;
-    private String ownerPhoneNumber;
-    private String userName;
-    private String password;
+
 
     public String getUserName() {
         return userName;
@@ -134,6 +154,11 @@ public class Affiliate {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public int compareTo(Affiliate o) {
+        return this.getCompanyName().compareTo(o.getCompanyName());
     }
 
 }
