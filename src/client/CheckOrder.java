@@ -51,7 +51,7 @@ public class CheckOrder {
             DeliveryADT<foodOrdered> foo = orderList.getFood();
 
             System.out.println("\n---------------------------------------------------");
-            System.out.println("|               Your Order Details                 |");
+            System.out.println("|               Delivery Details                 |");
             System.out.println("---------------------------------------------------");
 
             System.out.println("Order ID :" + orderList.getOrderID());
@@ -185,36 +185,24 @@ public class CheckOrder {
         foodOrdered foodDetail = new foodOrdered(2001, "Nasi lemak", 1, 0.0);
         foodOrdered foodDetail1 = new foodOrdered(2001, "Burger Good", 1, 0.0);
         foodOrdered foodDetail2 = new foodOrdered(2001, "Kopi ice", 1, 0.0);
-        foodOrdered foodDetail3 = new foodOrdered(2002, "Roti bakar", 2, 0.0);
-        foodOrdered foodDetail4 = new foodOrdered(2002, "Telur Rebus", 2, 0.0);
-        foodOrdered foodDetail5 = new foodOrdered(2002, "Milo ais", 2, 0.0);
-        foodOrdered foodDetail6 = new foodOrdered(2002, "Roti telur", 3, 0.0);
-        foodOrdered foodDetail7 = new foodOrdered(2002, "Telur Good", 3, 0.0);
-        foodOrdered foodDetail8 = new foodOrdered(2002, "Limau ais", 3, 0.0);
+
+
 
         fo.add(foodDetail);
         fo.add(foodDetail1);
         fo.add(foodDetail2);
-        fo1.add(foodDetail3);
-        fo1.add(foodDetail4);
-        fo1.add(foodDetail5);
-        fo2.add(foodDetail6);
-        fo2.add(foodDetail7);
-        fo2.add(foodDetail8);
+
+
 
         orderDetails orderDetail = new orderDetails(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
-        orderDetails orderDetail2 = new orderDetails(1001, 2003, 3003, "Kopitiam3", "Jordan3", "Taman Gembira3", "0123456789(3)", fo2);
-        orderDetails orderDetail1 = new orderDetails(1002, 2002, 3002, "Kopitiam2", "Jordan2", "Taman Gembira2", "012-3456789(2)", fo1);
+
 
         od.add(orderDetail);
-        od.add(orderDetail1);
-        od.add(orderDetail2);
+      
 
         Staff Staff1 = new Staff(1001, "Alex", "Unavailable");
-        Staff Staff2 = new Staff(1002, "Jordan", "Available");
         staffList.add(Staff1);
-        staffList.add(Staff2);
-        Staff staff = null;
+         Staff staff = null;
         int input;
         int select;
         System.out.print("Enter staff ID : ");

@@ -18,7 +18,7 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
     public void add(T newEntry) {
         // 1. Create a new node
         Node newNode = new Node(newEntry);
-        // 2. If list is empty
+        // 2. Check if list is empty
         if (isEmpty()) {
             // 3. Make firstNode point to the new node
             firstNode = newNode;
@@ -34,22 +34,14 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
         size++;
     }
 
-    @Override
-    public String toString() {
-        String str = "";
-        Node temp = firstNode;
-        while (temp != null) {
-            str += temp.data + " ";
-            temp = temp.next;
-        }
-        return str;
-    }
 
     @Override
     public boolean contains(T anEntry) {
+        //1.Check if list is empty
         if (!isEmpty()) {
+            //2. Assign firstNode to temporary node
             Node temp = firstNode;
-
+            //3. while temporary node is not empty
             while (temp != null) {
                 if (temp.data.equals(anEntry)) {
                     return true;
@@ -141,5 +133,15 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
             this.next = next;
             this.previous = previous;
         }
+    }
+        @Override
+    public String toString() {
+        String str = "";
+        Node temp = firstNode;
+        while (temp != null) {
+            str += temp.data + " ";
+            temp = temp.next;
+        }
+        return str;
     }
 }
