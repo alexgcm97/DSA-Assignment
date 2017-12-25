@@ -166,9 +166,9 @@ public class AffiliateMaintain<T extends Comparable<? super T>> {
                 System.out.println("Invalid ID or Password");
                 ToF =true ;
             }
-            System.out.println("Successful logged in");
+            
         }while(ToF);
-        
+        System.out.println("Successful logged in");
     }
     
     
@@ -686,6 +686,7 @@ public class AffiliateMaintain<T extends Comparable<? super T>> {
                     break;
                 case "2":
                     registerAffialiate();
+                    System.out.println("Successfully created ID!");
                     YoN = true;
                     break;
                 case "0":

@@ -52,10 +52,8 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
         if (getSize() > index) {
             Node temp = getNodeAt(index);
             result = getPositionData(index);
-
-            if (index == getSize() - 1) {
-                lastNode = temp.previous;
-            }
+            
+          
 
             if (temp == firstNode) {
                 firstNode = firstNode.next;
