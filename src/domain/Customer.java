@@ -10,25 +10,23 @@ package domain;
  * @author junki
  */
 public class Customer {
+
     int custID;
     String name;
     String address;
     String phoneNum;
     String deliveryID;
 
-    
-  
-
-    public Customer(int custID, String name, String address, String phoneNum,String deliveryID) {
+    public Customer(int custID, String name, String address, String phoneNum, String deliveryID) {
         this.custID = custID;
         this.name = name;
         this.address = address;
         this.phoneNum = phoneNum;
         this.deliveryID = deliveryID;
     }
-    
+
     public Customer() {
-        
+
     }
 
     public int getCustID() {
@@ -62,6 +60,7 @@ public class Customer {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
     public String getDeliveryID() {
         return deliveryID;
     }
@@ -70,6 +69,4 @@ public class Customer {
         this.deliveryID = deliveryID;
     }
 
-    
-    
 }

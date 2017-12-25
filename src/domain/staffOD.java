@@ -10,6 +10,7 @@ package domain;
  * @author REPUBLIC
  */
 public class staffOD {
+
     private int orderID;
     private int resID;
     private String resName;

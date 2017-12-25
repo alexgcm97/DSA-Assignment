@@ -193,7 +193,6 @@ public class MaintainStaff {
     public static void retrieveDeliveries() {
         Staff staff = null;
         int input = 0, count = 0;
-        boolean found = false;
 
         System.out.println("\n\n\n\n**Retrieve Pending Deliveries**");
         OUTER:
@@ -215,14 +214,16 @@ public class MaintainStaff {
                     Staff s = staffList.get(i);
                     if (s.getID() == input) {
                         staff = s;
+
                     }
                 }
                 if (staff == null) {
                     System.out.println("Staff ID Not Found.");
-                }
-                if (!staff.getStatus().equals("Active")) {
-                    System.out.println("Staff is not active.");
-                    break OUTER;
+                } else {
+                    if (!staff.getStatus().equals("Active")) {
+                        System.out.println("Staff is " + staff.getStatus() + ".");
+                        staff = null;
+                    }
                 }
             } while (staff == null);
 
@@ -280,6 +281,7 @@ public class MaintainStaff {
                             input = scanner.nextInt();
                             scanner.nextLine();
 
+                            boolean foundID = false;
                             for (int i = 0; i < orderList.getSize(); i++) {
                                 staffOD od = orderList.get(i);
                                 if (input == od.getOrderID()) {
@@ -289,11 +291,12 @@ public class MaintainStaff {
                                     } else {
                                         System.out.println("Order already assigned.");
                                     }
-                                    break;
-                                } else {
-                                    System.out.println("Invalid Order ID");
+                                    foundID = true;
                                     break;
                                 }
+                            }
+                            if (foundID == false) {
+                                System.out.println("Invalid Order ID.");
                             }
                             break;
                         } else {
@@ -312,6 +315,7 @@ public class MaintainStaff {
                             input = scanner.nextInt();
                             scanner.nextLine();
                             StaffADT<staffOD> odList = staff.getDeliveryList();
+                            boolean foundID = false;
                             Loop:
                             for (int i = 0; i < odList.getSize(); i++) {
                                 staffOD od = odList.get(i);
@@ -324,12 +328,12 @@ public class MaintainStaff {
                                         System.out.println("Customer Address: " + od.getCustomerAdd());
                                         System.out.println("Customer Phone Number: " + od.getCustNo());
                                         System.out.println("Date: " + od.getDate());
-                                        found = true;
+                                        foundID = true;
                                         break;
                                     }
                                 }
                             }
-                            if (found == false) {
+                            if (foundID == false) {
                                 System.out.println("Invalid Order ID.");
                             }
                             break;
@@ -373,6 +377,11 @@ public class MaintainStaff {
                 }
                 if (staff == null) {
                     System.out.println("Staff ID Not Found.");
+                } else {
+                    if (!staff.getStatus().equals("Active")) {
+                        System.out.println("Staff is " + staff.getStatus() + ".");
+                        staff = null;
+                    }
                 }
             } while (staff == null);
 

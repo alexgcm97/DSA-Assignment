@@ -15,6 +15,8 @@ import domain.Menu;
 public interface MenuSortingInterface {
 
     public void bubble_sortAvailability(AffiliateADT<Menu> list);
+
     public void bubble_sortPrice(AffiliateADT<Menu> list);
+
     public void swap(int index, int nextIndex, AffiliateADT<Menu> list);
 }

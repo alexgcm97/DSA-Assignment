@@ -34,7 +34,6 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
         size++;
     }
 
-
     @Override
     public boolean contains(T anEntry) {
         //1.Check if list is empty
@@ -134,7 +133,8 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
             this.previous = previous;
         }
     }
-        @Override
+
+    @Override
     public String toString() {
         String str = "";
         Node temp = firstNode;

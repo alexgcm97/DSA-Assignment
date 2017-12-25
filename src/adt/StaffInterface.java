@@ -23,7 +23,7 @@ public interface StaffInterface<T> {
 
     //Determines whether the list is empty, return true if empty, false otherwise.
     boolean isEmpty();
-    
+
     //Set anEntry to the specified index.
     void set(int index, T anEntry);
 }

@@ -10,7 +10,7 @@ package domain;
  * @author Julian
  */
 public class Affiliate implements Comparable<Affiliate> {
-    
+
     private int licenseNumber;
     private String companyName;
     private String companyAddress;
@@ -40,8 +40,9 @@ public class Affiliate implements Comparable<Affiliate> {
     }
 
     public Affiliate() {
-       
+
     }
+
     public int getLicenseNumber() {
         return licenseNumber;
     }
@@ -137,8 +138,6 @@ public class Affiliate implements Comparable<Affiliate> {
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
         this.ownerPhoneNumber = ownerPhoneNumber;
     }
-
-
 
     public String getUserName() {
         return userName;

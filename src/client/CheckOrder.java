@@ -186,23 +186,17 @@ public class CheckOrder {
         foodOrdered foodDetail1 = new foodOrdered(2001, "Burger Good", 1, 0.0);
         foodOrdered foodDetail2 = new foodOrdered(2001, "Kopi ice", 1, 0.0);
 
-
-
         fo.add(foodDetail);
         fo.add(foodDetail1);
         fo.add(foodDetail2);
 
-
-
         orderDetails orderDetail = new orderDetails(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
 
-
         od.add(orderDetail);
-      
 
         Staff Staff1 = new Staff(1001, "Alex", "Unavailable");
         staffList.add(Staff1);
-         Staff staff = null;
+        Staff staff = null;
         int input;
         int select;
         System.out.print("Enter staff ID : ");

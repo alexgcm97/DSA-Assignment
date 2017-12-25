@@ -52,8 +52,6 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
         if (getSize() > index) {
             Node temp = getNodeAt(index);
             result = getPositionData(index);
-            
-          
 
             if (temp == firstNode) {
                 firstNode = firstNode.next;
@@ -122,23 +120,20 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
         Node newNode = new Node(newEntry);//0>1>6>2>3>4>5 (6)
         if (getSize() > index) {
             Node temp = getNodeAt(index);
-            
+
             if (index == 0) {
                 firstNode = newNode;
-            }
-            else{
+            } else {
                 temp.previous.next = newNode;
             }
-            
+
             //temp = 2 , 2 infront 1, 2 back 3 >> 2 infront 6
             //newNode = 6, 6 infront 1, 6 back 2
             newNode.previous = temp.previous;
             newNode.next = temp;
             temp.previous = newNode;
-            
-            
-        }
-        else if(getSize() == index){ // 0 , 1 , 2, 3 > 4 2 > 4
+
+        } else if (getSize() == index) { // 0 , 1 , 2, 3 > 4 2 > 4
             newNode.previous = lastNode;
             newNode.next = null;
             //lastNode.previous.next = newNode;
@@ -163,7 +158,7 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
 
         return result;
     }
-    
+
     @Override
     public void set(int index, T anEntry) {
         Node temp = firstNode;
@@ -173,23 +168,20 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
         temp.data = anEntry;
     }
 
-    public Node getNodeAt(int index)
-    {
+    public Node getNodeAt(int index) {
         Node temp = null;
-        
-        if(getSize() > index)
-        {
+
+        if (getSize() > index) {
             temp = firstNode;
-            
-            for(int i = 0; i < index; i++)
-            {
+
+            for (int i = 0; i < index; i++) {
                 temp = temp.next;
             }
         }
-        
+
         return temp;
     }
-    
+
     private class Node {
 
         T data;

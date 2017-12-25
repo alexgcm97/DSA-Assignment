@@ -9,8 +9,8 @@ package adt;
  *
  * @author REPUBLIC
  */
-public interface DeliveryInterface <T> {
-    
+public interface DeliveryInterface<T> {
+
     void add(T newEntry);
 
     T get(int index);
@@ -22,6 +22,6 @@ public interface DeliveryInterface <T> {
     int getSize();
 
     boolean isEmpty();
-    
+
     void set(int index, T anEntry);
 }
