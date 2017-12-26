@@ -35,17 +35,6 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
     }
 
     @Override
-    public String toString() {
-        String str = "";
-        Node temp = firstNode;
-        while (temp != null) {
-            str += temp.data + " ";
-            temp = temp.next;
-        }
-        return str;
-    }
-
-    @Override
     public T remove(int index) {
         T result = null;
 
@@ -79,22 +68,6 @@ public class AffiliateADT<T extends Comparable<? super T>> implements AffiliateI
     @Override
     public T getData() {
         return getPositionData(0);
-    }
-
-    @Override
-    public boolean contains(T anEntry) {
-        if (!isEmpty()) {
-            Node temp = firstNode;
-
-            while (temp != null) {
-                if (temp.data.equals(anEntry)) {
-                    return true;
-                } else {
-                    temp = temp.next;
-                }
-            }
-        }
-        return false;
     }
 
     @Override

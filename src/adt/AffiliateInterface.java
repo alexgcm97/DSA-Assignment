@@ -25,7 +25,5 @@ public interface AffiliateInterface<T> {
 
     public int getSize();
 
-    public boolean contains(T anEntry);
-
     public boolean isEmpty();
 }
