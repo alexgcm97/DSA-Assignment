@@ -49,7 +49,7 @@ public class CheckOrder {
                 orderList = o;
             }
             DeliveryADT<foodOrdered> foo = orderList.getFood();
-
+            if(staff.getAvailability().equalsIgnoreCase("Available")){
             System.out.println("\n---------------------------------------------------");
             System.out.println("|               Delivery Details                 |");
             System.out.println("---------------------------------------------------");
@@ -67,6 +67,9 @@ public class CheckOrder {
                 System.out.println(foo.get(j).getFood() + "       " + foo.get(j).getQuantity());
             }
             System.out.println("-------------------------------------------------------");
+        }else
+                System.out.println("Please clock in/set to available first.");
+            break;
         }
     }
 
