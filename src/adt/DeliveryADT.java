@@ -30,7 +30,7 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
         }
         //Make lastNode point to new node
         lastNode = newNode;
-        size++; //Increase size 
+        size++; //Successfully added,increase size 
     }
     
      @Override
@@ -43,10 +43,10 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
                 } else {
                     firstNode.previous = null;
                 }
-                size--; 
+                size--; //Sucessfully removed, decrease size
                 return true;
             }
-            //shift entries
+            
             Node temp = firstNode; //Assign firstNode to temporary node
             while (!temp.data.equals(anEntry)) { //if temp data not equals to anEntry, keep searching
                 temp = temp.next;
@@ -54,12 +54,12 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
                     if (temp == lastNode) { //remove last node
                         lastNode = temp.previous;
                         lastNode.next = null;
-                    } else {    //remove middle node
+                    } else {    //Remove middle node
                         temp.next.previous = temp.previous;
                         temp.previous.next = temp.next;
 
                     }
-                    size--;
+                    size--; //Successfully removed, decrease size
                     return true;
                 }
             }

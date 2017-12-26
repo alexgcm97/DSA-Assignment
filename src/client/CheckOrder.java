@@ -199,15 +199,12 @@ public class CheckOrder {
         for (int i = 0; i < od.getSize(); i++) {
             orderDetails o = od.get(i);
             if (o.getOrderID() == select) {
-                System.out.println("Customer name :" + o.getCustomerName());
+                System.out.println("\nCustomer name :" + o.getCustomerName());
                 System.out.println("Delivery address :" + o.getCustomerAdd());
                 date1 = dateFormat.parse(o.getTime());
                 difference = (date1.getTime() + 1800000) - date2.getTime();
                 long diffMinutes = difference / (60 * 1000) % 60;
-                System.out.println("ETA of delivery: " + diffMinutes+" minutes");
-            }else{
-                System.out.println("Incorrect order ID.");
-                break;
+                System.out.println("\nETA of delivery: " + diffMinutes+" minutes");
             }
         }
 
@@ -223,7 +220,7 @@ public class CheckOrder {
             orderDetails o = od.get(i);
             if (o.getOrderID() == select) {
                 od.remove(o);
-                System.out.println("Delivery done");
+                System.out.println("\nDelivery done");
             } else {
                 System.out.println("Incorrect order ID.");
                 break;
