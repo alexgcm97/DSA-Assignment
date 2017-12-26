@@ -182,17 +182,25 @@ public class CheckOrder {
     }
 
     public static void main(String[] args) throws IOException {
-        foodOrdered foodDetail = new foodOrdered(2001, "Nasi lemak", 1, 0.0);
+        foodOrdered foodDetail = new foodOrdered(2001, "Nasi lemak ", 1, 0.0);
         foodOrdered foodDetail1 = new foodOrdered(2001, "Burger Good", 1, 0.0);
-        foodOrdered foodDetail2 = new foodOrdered(2001, "Kopi ice", 1, 0.0);
-
+        foodOrdered foodDetail2 = new foodOrdered(2001, "Kopi ice   ", 1, 0.0);
+        foodOrdered foodDetail3 = new foodOrdered(2002, "Nasi ayam  ", 2, 0.0);
+        foodOrdered foodDetail4 = new foodOrdered(2002, "Fish burger", 2, 0.0);
+        foodOrdered foodDetail5 = new foodOrdered(2002, "Teh ice    ", 2, 0.0);
+        
         fo.add(foodDetail);
         fo.add(foodDetail1);
         fo.add(foodDetail2);
+        fo1.add(foodDetail3);
+        fo1.add(foodDetail4);
+        fo1.add(foodDetail5);
 
         orderDetails orderDetail = new orderDetails(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
+        orderDetails orderDetail1 = new orderDetails(1001, 2002, 3002, "Kopitiam2", "Jordan2", "Taman Gembira2", "012-34567892", fo1);
 
         od.add(orderDetail);
+        od.add(orderDetail1);
 
         Staff Staff1 = new Staff(1001, "Alex", "Unavailable");
         staffList.add(Staff1);
@@ -215,7 +223,7 @@ public class CheckOrder {
             System.out.println("\n\n-Staff module-");
             System.out.println("1. Clock in");
             System.out.println("2. Clock out");
-            System.out.println("3. Orders");
+            System.out.println("3. Deliveries");
             System.out.println("4. Change availability");
 
             System.out.println("\n0. Exit");

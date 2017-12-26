@@ -33,6 +33,39 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
         lastNode = newNode;
         size++;
     }
+    
+     @Override
+    public boolean remove(T anEntry) {
+        if (!isEmpty()) {   //1.Check if list is empty
+            if (firstNode.data.equals(anEntry)) {   //2.Replace first node
+                firstNode = firstNode.next;
+                if (firstNode == null) {
+                    lastNode = null;
+                } else {
+                    firstNode.previous = null;
+                }
+                size--;
+                return true;
+            }
+            Node temp = firstNode;
+            while (temp != null && !temp.data.equals(anEntry)) {
+                temp = temp.next;
+                if (temp != null && temp.data.equals(anEntry)) {
+                    if (temp == lastNode) { //3.Remove last node
+                        lastNode = temp.previous;
+                        lastNode.next = null;
+                    } else {    //4.Remove middle node
+                        temp.previous.next = temp.next;
+                        temp.next.previous = temp.previous;
+                    }
+                    size--;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public boolean contains(T anEntry) {
@@ -77,38 +110,7 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
         return result;
     }
 
-    @Override
-    public boolean remove(T anEntry) {
-        if (!isEmpty()) {   //check empty list
-            if (firstNode.data.equals(anEntry)) {   // remove first node
-                firstNode = firstNode.next;
-                if (firstNode == null) {
-                    lastNode = null;
-                } else {
-                    firstNode.previous = null;
-                }
-                size--;
-                return true;
-            }
-            Node temp = firstNode;
-            while (temp != null && !temp.data.equals(anEntry)) {
-                temp = temp.next;
-                if (temp != null && temp.data.equals(anEntry)) {
-                    if (temp == lastNode) { //remove last node
-                        lastNode = temp.previous;
-                        lastNode.next = null;
-                    } else {    //remove middle node
-                        temp.previous.next = temp.next;
-                        temp.next.previous = temp.previous;
-                    }
-                    size--;
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
+   
     @Override
     public void set(int index, T anEntry) {
         Node temp = firstNode;
@@ -134,14 +136,5 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
         }
     }
 
-    @Override
-    public String toString() {
-        String str = "";
-        Node temp = firstNode;
-        while (temp != null) {
-            str += temp.data + " ";
-            temp = temp.next;
-        }
-        return str;
-    }
+
 }
