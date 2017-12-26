@@ -46,6 +46,7 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
                 size--; 
                 return true;
             }
+            //shift entries
             Node temp = firstNode; //Assign firstNode to temporary node
             while (temp != null && !temp.data.equals(anEntry)) {
                 temp = temp.next;
