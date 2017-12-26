@@ -48,9 +48,9 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
             }
             //shift entries
             Node temp = firstNode; //Assign firstNode to temporary node
-            while (temp != null && !temp.data.equals(anEntry)) {
+            while (!temp.data.equals(anEntry)) { //if temp data not equals to anEntry, keep searching
                 temp = temp.next;
-                if (temp != null && temp.data.equals(anEntry)) {
+                if (temp.data.equals(anEntry)) { //if found
                     if (temp == lastNode) { //remove last node
                         lastNode = temp.previous;
                         lastNode.next = null;
@@ -100,9 +100,10 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
     public T get(int index) {
         T result = null;
         Node temp = firstNode;
+        // if index is the first, get firstNode's data
         if (index == 0) {
             result = firstNode.data;
-        } else {
+        } else { //else search until index is found
             for (int i = 0; i < index; i++) {
                 temp = temp.next;
             }
@@ -115,9 +116,11 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
     @Override
     public void set(int index, T anEntry) {
         Node temp = firstNode;
+        // search for index until found
         for (int i = 0; i < index; i++) {
             temp = temp.next;
         }
+        //set data
         temp.data = anEntry;
     }
 
