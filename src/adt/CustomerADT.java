@@ -28,17 +28,6 @@ public class CustomerADT<T> implements CustomerInterface<T> {
     }
 
     @Override
-    public String toString() {
-        String str = "";
-        Node temp = firstNode;
-        while (temp != null) {
-            str += temp.data + " ";
-            temp = temp.next;
-        }
-        return str;
-    }
-
-    @Override
     public boolean remove(T anEntry) {
         if (!isEmpty()) {   //check empty list
             if (firstNode.data.equals(anEntry)) {   // remove first node
@@ -102,20 +91,8 @@ public class CustomerADT<T> implements CustomerInterface<T> {
         return size;
     }
 
-    @Override
     public boolean isEmpty() {
         return firstNode == null;
-    }
-
-    @Override
-    public String toStringReverse() {
-        String str = "";
-        Node temp = lastNode;
-        while (temp != null) {
-            str += temp.data + " ";
-            temp = temp.previous;
-        }
-        return str;
     }
 
     private class Node {

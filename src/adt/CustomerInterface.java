@@ -23,5 +23,4 @@ interface CustomerInterface<T> {
 
     boolean isEmpty();
 
-    String toStringReverse();
 }
