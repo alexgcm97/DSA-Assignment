@@ -16,47 +16,47 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
 
     @Override
     public void add(T newEntry) {
-        // 1. Create a new node
+        // Create new node
         Node newNode = new Node(newEntry);
-        // 2. Check if list is empty
+        // Check if list is empty
         if (isEmpty()) {
-            // 3. Make firstNode point to the new node
+            // Make firstNode point to the new node
             firstNode = newNode;
-            // 4. else
         } else {
-            // 5. Make the last node's next point to the new node
+            //Last node's next point to the new node
             lastNode.next = newNode;
-            // 6. Make new node's next point to the last node
+            //New node's previous point to the last node
             newNode.previous = lastNode;
         }
-        // 7. Make lastNode point to new node
+        //Make lastNode point to new node
         lastNode = newNode;
-        size++;
+        size++; //Increase size 
     }
     
      @Override
     public boolean remove(T anEntry) {
-        if (!isEmpty()) {   //1.Check if list is empty
-            if (firstNode.data.equals(anEntry)) {   //2.Replace first node
-                firstNode = firstNode.next;
+        if (!isEmpty()) {   //Check if list is empty
+            if (firstNode.data.equals(anEntry)) {  
+                firstNode = firstNode.next;  //Remove first node
                 if (firstNode == null) {
                     lastNode = null;
                 } else {
                     firstNode.previous = null;
                 }
-                size--;
+                size--; 
                 return true;
             }
-            Node temp = firstNode;
+            Node temp = firstNode; //Assign firstNode to temporary node
             while (temp != null && !temp.data.equals(anEntry)) {
                 temp = temp.next;
                 if (temp != null && temp.data.equals(anEntry)) {
-                    if (temp == lastNode) { //3.Remove last node
+                    if (temp == lastNode) { //remove last node
                         lastNode = temp.previous;
                         lastNode.next = null;
-                    } else {    //4.Remove middle node
-                        temp.previous.next = temp.next;
+                    } else {    //remove middle node
                         temp.next.previous = temp.previous;
+                        temp.previous.next = temp.next;
+
                     }
                     size--;
                     return true;
@@ -69,11 +69,11 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
 
     @Override
     public boolean contains(T anEntry) {
-        //1.Check if list is empty
+        //Check if list is empty
         if (!isEmpty()) {
-            //2. Assign firstNode to temporary node
+            //Assign firstNode to temporary node
             Node temp = firstNode;
-            //3. while temporary node is not empty
+            //while temporary node is not empty
             while (temp != null) {
                 if (temp.data.equals(anEntry)) {
                     return true;
