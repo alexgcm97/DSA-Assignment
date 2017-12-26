@@ -17,11 +17,8 @@ public interface DeliveryInterface<T> {
 
     boolean remove(T anEntry);
 
-    boolean contains(T anEntry);
-
     int getSize();
 
     boolean isEmpty();
 
-    void set(int index, T anEntry);
 }

@@ -69,24 +69,6 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
 
 
     @Override
-    public boolean contains(T anEntry) {
-        //Check if list is empty
-        if (!isEmpty()) {
-            //Assign firstNode to temporary node
-            Node temp = firstNode;
-            //while temporary node is not empty
-            while (temp != null) {
-                if (temp.data.equals(anEntry)) {
-                    return true;
-                } else {
-                    temp = temp.next;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
     public int getSize() {
         return size;
     }
@@ -113,16 +95,7 @@ public class DeliveryADT<T> implements DeliveryInterface<T> {
     }
 
    
-    @Override
-    public void set(int index, T anEntry) {
-        Node temp = firstNode;
-        // search for index until found
-        for (int i = 0; i < index; i++) {
-            temp = temp.next;
-        }
-        //set data
-        temp.data = anEntry;
-    }
+
 
     private class Node {
 

@@ -45,32 +45,34 @@ public class CheckOrder {
         }
         for (int i = 0; i < od.getSize(); i++) {
             orderDetails o = od.get(i);
-            if (o.getStaffID() == id) {
-                orderList = o;
-            }
-            DeliveryADT<foodOrdered> foo = orderList.getFood();
-            if(staff.getAvailability().equalsIgnoreCase("Available")){
-            System.out.println("\n---------------------------------------------------");
-            System.out.println("|               Delivery Details                 |");
-            System.out.println("---------------------------------------------------");
 
-            System.out.println("Order ID :" + orderList.getOrderID());
-            System.out.println("Restaurant ID :" + orderList.getResID());
-            System.out.println("Restaurant name :" + orderList.getResName());
-            System.out.println("Customer name :" + orderList.getCustomerName());
-            System.out.println("Delivery address :" + orderList.getCustomerAdd());
-            System.out.println("Customer hp no. :" + orderList.getCustNo());
-            System.out.println("\nFood ordered");
-            System.out.println("| Food Name  |  Quantity |");
-            System.out.println("---------------------------------------------------");
-            for (int j = 0; j < foo.getSize(); j++) {
-                System.out.println(foo.get(j).getFood() + "       " + foo.get(j).getQuantity());
-            }
-            System.out.println("-------------------------------------------------------");
-        }else
+            orderList = o;
+
+            DeliveryADT<foodOrdered> foo = orderList.getFood();
+            if (staff.getAvailability().equalsIgnoreCase("Available")) {
+                System.out.println("\n---------------------------------------------------");
+                System.out.println("|               Delivery Details                 |");
+                System.out.println("---------------------------------------------------");
+
+                System.out.println("Order ID :" + orderList.getOrderID());
+                System.out.println("Restaurant ID :" + orderList.getResID());
+                System.out.println("Restaurant name :" + orderList.getResName());
+                System.out.println("Customer name :" + orderList.getCustomerName());
+                System.out.println("Delivery address :" + orderList.getCustomerAdd());
+                System.out.println("Customer hp no. :" + orderList.getCustNo());
+                System.out.println("\nFood ordered");
+                System.out.println("| Food Name  |  Quantity |");
+                System.out.println("---------------------------------------------------");
+                for (int j = 0; j < foo.getSize(); j++) {
+                    System.out.println(foo.get(j).getFood() + "       " + foo.get(j).getQuantity());
+                }
+                System.out.println("-------------------------------------------------------");
+            } else {
                 System.out.println("Please clock in/set to available first.");
-            break;
+                break;
+            }
         }
+
     }
 
     public static void checkIn(int id) {
@@ -184,23 +186,69 @@ public class CheckOrder {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void checkETA() throws ParseException {
+        int select;
+        Date date1;
+        Date date2 = Calendar.getInstance().getTime();
+
+        long difference;
+
+        System.out.println("Enter order ID: ");
+        select = scan.nextInt();
+
+        for (int i = 0; i < od.getSize(); i++) {
+            orderDetails o = od.get(i);
+            if (o.getOrderID() == select) {
+                System.out.println("Customer name :" + o.getCustomerName());
+                System.out.println("Delivery address :" + o.getCustomerAdd());
+                date1 = dateFormat.parse(o.getTime());
+                difference = (date1.getTime() + 1800000) - date2.getTime();
+                long diffMinutes = difference / (60 * 1000) % 60;
+                System.out.println("ETA of delivery: " + diffMinutes+" minutes");
+            }else{
+                System.out.println("Incorrect order ID.");
+                break;
+            }
+        }
+
+    }
+
+    public static void doneDelivery() {
+        int select;
+
+        System.out.println("Enter order ID: ");
+        select = scan.nextInt();
+
+        for (int i = 0; i < od.getSize(); i++) {
+            orderDetails o = od.get(i);
+            if (o.getOrderID() == select) {
+                od.remove(o);
+                System.out.println("Delivery done");
+            } else {
+                System.out.println("Incorrect order ID.");
+                break;
+            }
+            
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ParseException {
         foodOrdered foodDetail = new foodOrdered(2001, "Nasi lemak ", 1, 0.0);
         foodOrdered foodDetail1 = new foodOrdered(2001, "Burger Good", 1, 0.0);
         foodOrdered foodDetail2 = new foodOrdered(2001, "Kopi ice   ", 1, 0.0);
         foodOrdered foodDetail3 = new foodOrdered(2002, "Nasi ayam  ", 2, 0.0);
         foodOrdered foodDetail4 = new foodOrdered(2002, "Fish burger", 2, 0.0);
         foodOrdered foodDetail5 = new foodOrdered(2002, "Teh ice    ", 2, 0.0);
-        
+
         fo.add(foodDetail);
         fo.add(foodDetail1);
         fo.add(foodDetail2);
         fo1.add(foodDetail3);
         fo1.add(foodDetail4);
         fo1.add(foodDetail5);
-
-        orderDetails orderDetail = new orderDetails(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo);
-        orderDetails orderDetail1 = new orderDetails(1001, 2002, 3002, "Kopitiam2", "Jordan2", "Taman Gembira2", "012-34567892", fo1);
+        String orderTime = dateFormat.format(new Date());
+        orderDetails orderDetail = new orderDetails(1001, 2001, 3001, "Kopitiam", "Jordan", "Taman Gembira", "012-3456789", fo, orderTime);
+        orderDetails orderDetail1 = new orderDetails(1001, 2002, 3002, "Kopitiam2", "Jordan2", "Taman Gembira2", "012-34567892", fo1, orderTime);
 
         od.add(orderDetail);
         od.add(orderDetail1);
@@ -228,6 +276,8 @@ public class CheckOrder {
             System.out.println("2. Clock out");
             System.out.println("3. Deliveries");
             System.out.println("4. Change availability");
+            System.out.println("5. Complete delivery");
+            System.out.println("6. Customer ETA");
 
             System.out.println("\n0. Exit");
             System.out.print("Input Selection : ");
@@ -247,6 +297,12 @@ public class CheckOrder {
                     break;
                 case 4:
                     updateAvailability(id);
+                    break;
+                case 5:
+                    doneDelivery();
+                    break;
+                case 6:
+                    checkETA();
                     break;
                 default:
                     System.out.println("Invalid Selection");

@@ -21,14 +21,13 @@ public class orderDetails {
     private String customerAdd;
     private String custNo;
     private DeliveryADT food;
-    private String status;
+    private String time;
 
     public orderDetails() {
 
     }
 
-    public orderDetails(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, DeliveryADT food) {
-
+    public orderDetails(int staffID, int orderID, int resID, String resName, String customerName, String customerAdd, String custNo, DeliveryADT food, String time) {
         this.staffID = staffID;
         this.orderID = orderID;
         this.resID = resID;
@@ -37,7 +36,15 @@ public class orderDetails {
         this.customerAdd = customerAdd;
         this.custNo = custNo;
         this.food = food;
-        this.status = "Pending";
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public orderDetails(int resID, String resName) {
@@ -109,11 +116,5 @@ public class orderDetails {
         this.custNo = custNo;
     }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
