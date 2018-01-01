@@ -683,7 +683,7 @@ public class MaintainStaff {
                         sortedList.bubble_sort(staffList, "Delivery");
                         System.out.println("\n----Daily Report on Delivery Men's Total Deliveries Completed----");
                         System.out.println("==================================================================");
-                        System.out.printf("|Report Date: %10s %20s Report No: %8d|\n", dateStr, "", reportNo);
+                        System.out.printf("|Report Date: %10s %20s Report No: %7d |\n", dateStr, "", reportNo);
                         System.out.println("------------------------------------------------------------------");
                         System.out.print("|");
                         System.out.println(" No. | Delivery Man's Name (ID)   |  Total Deliveries Completed |");
@@ -691,7 +691,7 @@ public class MaintainStaff {
                         for (int i = 0; i < staffList.getSize(); i++) {
                             Staff s = staffList.get(i);
                             if (staffList.get(i).getNoOfDoneDelivery() > 0) {
-                                System.out.printf("| %3d | %25s  | %28d|\n", i + 1, (s.getName() + "(" + s.getID() + ")"), s.getNoOfDoneDelivery());
+                                System.out.printf("| %3d | %26s | %27d |\n", i + 1, (s.getName() + "(" + s.getID() + ")"), s.getNoOfDoneDelivery());
                                 sum += staffList.get(i).getNoOfDoneDelivery();
                             }
                         }
@@ -700,7 +700,7 @@ public class MaintainStaff {
                         }
                         System.out.println("==================================================================");
                         if (sum > 0) {
-                            System.out.printf("%61s %3d\n", "Grand Total:", sum);
+                            System.out.printf("%60s %3d\n", "Grand Total:", sum);
                         }
                         System.out.printf("Report Generated on: %s\n\n", df.format(new Date()));
                         reportNo++;
@@ -711,15 +711,15 @@ public class MaintainStaff {
                         sortedList.bubble_sort(staffList, "Distance");
                         System.out.println("\n----Daily Report on Delivery Men's Total Distance Travelled----");
                         System.out.println("==================================================================");
-                        System.out.printf("|Report Date: %10s %20s Report No: %8d|\n", dateStr, "", reportNo);
+                        System.out.printf("|Report Date: %10s %20s Report No: %7d |\n", dateStr, "", reportNo);
                         System.out.println("------------------------------------------------------------------");
                         System.out.print("|");
-                        System.out.println(" No. | Delivery Man's Name (ID)   | Total Distance Travelled(m) |");
+                        System.out.println(" No. | Delivery Man's Name (ID)  | Total Distance Travelled(km) |");
                         System.out.println("------------------------------------------------------------------");
                         for (int i = 0; i < staffList.getSize(); i++) {
                             Staff s = staffList.get(i);
                             if (staffList.get(i).getTotalDistance() > 0) {
-                                System.out.printf("| %3d | %25s  | %28.2f|\n", i + 1, (s.getName() + "(" + s.getID() + ")"), s.getTotalDistance());
+                                System.out.printf("| %3d | %25s | %28.2f |\n", i + 1, (s.getName() + "(" + s.getID() + ")"), s.getTotalDistance());
                                 sum += staffList.get(i).getTotalDistance();
                             }
                         }
@@ -728,7 +728,7 @@ public class MaintainStaff {
                         }
                         System.out.println("==================================================================");
                         if (sum > 0) {
-                            System.out.printf("%57s %7.2fm\n", "Grand Total:", sum);
+                            System.out.printf("%57s %6.2fkm\n", "Grand Total:", sum);
                         }
                         System.out.printf("Report Generated on: %s\n\n", df.format(new Date()));
                         reportNo++;
